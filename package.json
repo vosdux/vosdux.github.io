@@ -1,9 +1,9 @@
 {
   "name": "webstack",
   "version": "1.0.0",
-  "homepage": "https://<githubusername>.github.io/webstack-platform",
-  "repository": "",
-  "author": "",
+  "homepage": "https://vosdux.github.io/webstack-platform",
+  "repository": "https://github.com/vosdux/webstack-platform/",
+  "author": "vosdux",
   "scripts": {
     "start": "NODE_ENV=development webpack serve --config webpack.dev.js",
     "start:prod": "NODE_ENV=production cd build/ && npx http-server --port 3000 -a localhost --proxy http://localhost:3000? .",
