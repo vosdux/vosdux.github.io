@@ -36,7 +36,7 @@ module.exports = merge(common, {
     }),
     new HtmlWebpackPlugin({
       template: './public/template.prod.html',
-      publicPath: './', // Если хотите запустить локально прод сборку, уберите эту строчку
+      publicPath: '/',
       // favicon: './src/assets/images/favicon.png',
     }),
     new CleanWebpackPlugin(),
