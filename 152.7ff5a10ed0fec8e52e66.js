@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkwebstack=self.webpackChunkwebstack||[]).push([[152],{3152:(e,n,t)=>{t.r(n),t.d(n,{default:()=>u});var c=t(7363),s=t.n(c);const u=function(){return s().createElement("div",null,"login")}}}]);
