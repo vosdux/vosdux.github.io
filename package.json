@@ -1,7 +1,7 @@
 {
   "name": "webstack",
   "version": "1.0.0",
-  "homepage": "https://vosdux.github.io/webstack-platform",
+  "homepage": ".",
   "repository": "https://github.com/vosdux/webstack-platform/",
   "author": "vosdux",
   "scripts": {
