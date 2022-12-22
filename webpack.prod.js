@@ -36,6 +36,7 @@ module.exports = merge(common, {
     }),
     new HtmlWebpackPlugin({
       template: './public/template.prod.html',
+      publicPath: './webstack-platform',
       // favicon: './src/assets/images/favicon.png',
     }),
     new CleanWebpackPlugin(),
