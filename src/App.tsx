@@ -1,6 +1,10 @@
+import React, { Suspense } from 'react';
 import { AppRoute } from './Route';
-import React from 'react';
 
 export const App = () => {
-  return <AppRoute />;
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <AppRoute />
+    </Suspense>
+  );
 };

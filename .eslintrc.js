@@ -3,11 +3,7 @@ module.exports = {
     browser: true,
     es2021: true,
   },
-  extends: [
-    'plugin:@typescript-eslint/recommended',
-    'plugin:react/recommended',
-    'plugin:react-hooks/recommended',
-  ],
+  extends: ['plugin:@typescript-eslint/recommended', 'plugin:react/recommended', 'plugin:react-hooks/recommended'],
   parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaFeatures: {
@@ -16,7 +12,7 @@ module.exports = {
     ecmaVersion: 12,
     sourceType: 'module',
   },
-  plugins: ['react', '@typescript-eslint'],
+  plugins: ['react', '@typescript-eslint', 'import'],
   rules: {
     'no-console': 'warn',
     'prefer-const': 'warn',
@@ -37,6 +33,21 @@ module.exports = {
         ignoreDefaultValues: true,
         ignoreArrayIndexes: true,
         ignore: [1, 10, 100],
+      },
+    ],
+    'import/no-duplicates': 'warn',
+    'import/order': [
+      'warn',
+      {
+        groups: ['external', 'index', 'sibling', 'parent', 'internal', 'builtin', 'object', 'type'],
+        pathGroups: [
+          {
+            pattern: '@**/**',
+            group: 'external',
+            position: 'after',
+          },
+        ],
+        pathGroupsExcludedImportTypes: ['builtin'],
       },
     ],
   },
