@@ -15,8 +15,6 @@ class AuthStore {
         this.isLoading = true;
       });
 
-      console.log('start login');
-
       const res = await api.auth.login(data);
 
       alert(res);
