@@ -15,7 +15,7 @@ SPA
 ### Деплой
 При пуше в main, билдится приложение в ветку gh-pages и деплоится на github-pages
 
-[webstack-platform](https://vosdux.github.io/webstack-platform/)
+[webstack-platform](https://vosdux.github.io/)
 
 ### Срипты
 - yarn start - Для запуска dev сервера используйте команду 
