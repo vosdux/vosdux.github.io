@@ -1,7 +1,7 @@
 import React from 'react';
-import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 import { Button, Checkbox, Form, Input } from 'antd';
+import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { authStore } from '@stores/authStore';
 import { root, container__login, login__btn, login__block } from './styles';
 
