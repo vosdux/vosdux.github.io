@@ -25,12 +25,7 @@ const LoginPage: React.FC = () => {
   return (
     <div className={root}>
       <div className={container__login}>
-        <Form
-          name="normal_login"
-          className={`${login__block} login-form`}
-          initialValues={{ remember: true }}
-          onFinish={onFinish}
-        >
+        <Form name="normal_login" className={login__block} initialValues={{ remember: true }} onFinish={onFinish}>
           <h2>Авторизация</h2>
           <Form.Item
             name="username"
