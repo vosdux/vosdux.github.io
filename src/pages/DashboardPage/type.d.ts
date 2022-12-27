@@ -1,0 +1,3 @@
+type DashboardTypes = {
+  email: string;
+};
