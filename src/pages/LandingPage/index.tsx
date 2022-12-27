@@ -10,7 +10,7 @@ const LandingPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    login({ login: '', password: '' });
+    login({ username: '', password: '' });
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
