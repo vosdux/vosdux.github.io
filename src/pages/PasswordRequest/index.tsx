@@ -2,7 +2,13 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button, Form, Input } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
-import { root, container__login, login__block, login__btn, register__input } from './styles';
+import {
+  root,
+  container__passwordRequest,
+  passwordRequest__block,
+  passwordRequest__btn,
+  passwordRequest__input,
+} from './styles';
 const formItemLayout = {
   labelCol: {
     xs: { span: 24 },
@@ -34,7 +40,7 @@ const PasswordRequest: React.FC = () => {
   };
   return (
     <div className={root}>
-      <div className={container__login}>
+      <div className={container__passwordRequest}>
         <Form
           {...formItemLayout}
           form={form}
@@ -45,7 +51,7 @@ const PasswordRequest: React.FC = () => {
             prefix: '86',
           }}
           scrollToFirstError
-          className={login__block}
+          className={passwordRequest__block}
         >
           <h3>Ваш адрес электронной почты</h3>
           <p>Укажите ваш адрес электронной почты</p>
@@ -62,9 +68,9 @@ const PasswordRequest: React.FC = () => {
               },
             ]}
           >
-            <Input className={register__input} prefix={<UserOutlined />} placeholder="E-mail" />
+            <Input className={passwordRequest__input} prefix={<UserOutlined />} placeholder="E-mail" />
           </Form.Item>
-          <Form.Item {...tailFormItemLayout} className={login__btn}>
+          <Form.Item {...tailFormItemLayout} className={passwordRequest__btn}>
             <Button type="primary" htmlType="submit">
               Далее
             </Button>

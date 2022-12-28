@@ -10,20 +10,20 @@ export const root = css`
   background-color: #fff;
 `;
 
-export const container__login = css`
+export const container__passwordRequest = css`
   box-shadow: 0px 7px 10px rgba(0, 0, 0, 0.25);
   border-radius: 50px;
   border: 3px solid;
   border-image-source: linear-gradient(135.59deg, rgba(88, 130, 193, 0.49) 1.28%, rgba(88, 130, 193, 0.11) 96.26%);
   padding: 5px;
 `;
-export const login__block = css`
-  padding: 45px 95px;
+export const passwordRequest__block = css`
+  padding: 45px 85px;
   @media (max-width: 746px) {
-    padding: 25px 65px;
+    padding: 25px 55px;
   }
   @media (max-width: 564px) {
-    padding: 25px 55px;
+    padding: 20px 35px;
   }
   h3 {
     margin: 15px 0 10px 0;
@@ -42,7 +42,7 @@ export const login__block = css`
   }
 `;
 
-export const login__btn = css`
+export const passwordRequest__btn = css`
   div {
     margin-inline-start: 0;
   }
@@ -52,7 +52,7 @@ export const login__btn = css`
   }
 `;
 
-export const register__input = css`
+export const passwordRequest__input = css`
   width: 400px;
   font-size: 20px;
   @media (max-width: 746px) {
