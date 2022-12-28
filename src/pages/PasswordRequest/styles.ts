@@ -55,6 +55,7 @@ export const passwordRequest__btn = css`
 export const passwordRequest__input = css`
   width: 400px;
   font-size: 20px;
+  margin: 15px 0 5px 0;
   @media (max-width: 746px) {
     width: 350px;
   }
