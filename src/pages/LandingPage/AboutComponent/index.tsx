@@ -1,12 +1,14 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react';
-
+import {about, about__title} from './styles';
 
 const AboutComponent = () => {
 
 
     return(
-        <div style={{height: '100vh', backgroundColor: '#e6ecf0', width: '100vw'}}>{'i was here!'}</div>
+        <section className={about}>
+            <h2 className={about__title}>О нас</h2>
+        </section>
     );
 };
 

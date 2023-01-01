@@ -1,17 +1,12 @@
-import { Button } from 'antd'; 
 import React, { useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
 import { useNavigate } from 'react-router-dom';
-
 import { authStore } from '@stores/authStore';
-
 import { useCallback } from "react";
 import Particles from "react-tsparticles";
 import type { Container, Engine } from "tsparticles-engine";
 import { loadFull } from "tsparticles";
 import {animation1, animation2, animation3, animation4, animation5, animation6, animation7, animation8, animation9, animation10, animation11, animation12, animation13, animation14} from "./animation";
-
-//
 import {header, centered, centeredList, centeredList__title, centered__organization, link, link__castom, link__castom__point} from './styles';
 
 const HeaderComponent = () => {
@@ -20,10 +15,8 @@ const HeaderComponent = () => {
 
   useEffect(() => {
     login({ username: '', password: '' });
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  //ts particles part
   const particlesInit = useCallback(async (engine: Engine) => {
     console.log(engine);
 
@@ -36,8 +29,7 @@ const HeaderComponent = () => {
 const particlesLoaded = useCallback(async (container: Container | undefined) => {
     await console.log(container);
 }, []);
-//
-//animation test
+
 animation1();
 animation2();
 animation3();
