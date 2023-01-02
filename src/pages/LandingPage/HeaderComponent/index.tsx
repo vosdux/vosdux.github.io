@@ -8,6 +8,9 @@ import type { Container, Engine } from "tsparticles-engine";
 import { loadFull } from "tsparticles";
 import {animation1, animation2, animation3, animation4, animation5, animation6, animation7, animation8, animation9, animation10, animation11, animation12, animation13, animation14} from "./animation";
 import {header, centered, centeredList, centeredList__title, centered__organization, link, link__castom, link__castom__point} from './styles';
+import wow from 'react-wow';
+import 'animate.css';
+import classNames from 'classnames';
 
 const HeaderComponent = () => {
   const { login } = authStore;
@@ -150,7 +153,7 @@ animation14();
         <li className={centeredList__title} id='13'>0</li>
         <li className={centeredList__title} id='14'>0</li>
     </ul>
-    <div className={centered}>
+    <div className={classNames(centered, "animate__animated", "animate__fadeInLeft")}>
         <code className={centered__organization}>{'< WEBSTACK />'}</code>
     </div>
   </header>

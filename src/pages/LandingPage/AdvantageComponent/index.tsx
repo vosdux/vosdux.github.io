@@ -1,5 +1,6 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { observer } from 'mobx-react-lite';
+import classNames from 'classnames';
 import { advantage, advantage__title, advantage__list, advantage__list__card, advantage__list__card__title, advantage__list__card__description, advantage__list__card__image } from "./styles";
 import easy from './images/easy.png';
 import level from './images/level.png';
@@ -7,17 +8,18 @@ import price from './images/best-price.png';
 import community from './images/communities.png';
 import premium from './images/premium.png';
 import stock from './images/ready-stock.png';
-
-
+import 'animate.css';
 
 
 
 export const AdvantageComponent = () => {
 
     return(
-        <section className={advantage}>
+        <section className={classNames(advantage)}>
+            <div className="wow animate__animated animate__slideInUp">
             <h2 className={advantage__title}>Наши преимущества</h2>
-            <ul className={advantage__list}>
+            </div>
+            <ul className={classNames(advantage__list, "wow animate__animated animate__slideInUp")}>
                 <li className={advantage__list__card}>
                     <img src={easy} alt='Easy form of information' className={advantage__list__card__image} />
                     <p className={advantage__list__card__title}>Легкая воспринимаемость</p>
@@ -51,6 +53,6 @@ export const AdvantageComponent = () => {
             </ul>
         </section>
     );
-}
+};
 
 export default observer(AdvantageComponent);
