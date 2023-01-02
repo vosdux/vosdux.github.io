@@ -5,7 +5,7 @@ import { review, review__title } from "./styles";
 export const ReviewComponent = () => {
 
     return(
-        <section className={review}>
+        <section className={review} id="review">
             <h2 className={review__title}>Отзывы</h2>
         </section>
     );

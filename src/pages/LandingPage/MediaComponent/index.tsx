@@ -5,7 +5,7 @@ import {media, media__title} from './styles';
 export const MediaComponent = () => {
 
     return(
-        <section className={media}>
+        <section className={media} id="media">
             <h2 className={media__title}>Видео с канала</h2>
         </section>
     );

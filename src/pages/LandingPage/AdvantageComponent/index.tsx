@@ -15,7 +15,7 @@ import 'animate.css';
 export const AdvantageComponent = () => {
 
     return(
-        <section className={classNames(advantage)}>
+        <section className={classNames(advantage)} id="advantage">
             <div className="wow animate__animated animate__slideInUp">
             <h2 className={advantage__title}>Наши преимущества</h2>
             </div>

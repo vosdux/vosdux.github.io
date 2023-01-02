@@ -18,7 +18,7 @@ import 'animate.css';
 
 const AboutComponent = () => {
   return (
-    <section className={about}>
+    <section className={about} id="about">
       <div className="wow animate__animated animate__slideInUp">
       <h2 className={classNames(about__title, "animate__animated", "animate__fadeInLeft")}>О нас</h2>
       </div>
