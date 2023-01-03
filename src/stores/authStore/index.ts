@@ -4,6 +4,8 @@ import { api } from '@api/api';
 
 class AuthStore {
   isLoading = false;
+  isAuthenticated = false;
+  isActivated = false;
 
   constructor() {
     makeAutoObservable(this);
@@ -32,12 +34,12 @@ class AuthStore {
       runInAction(() => {
         this.isLoading = true;
       });
-
       const res = await api.auth.singnUp(data);
+      console.log(res);
 
       alert(res);
     } catch (error) {
-      message.error('error');
+      message.error(error);
     } finally {
       runInAction(() => {
         this.isLoading = false;

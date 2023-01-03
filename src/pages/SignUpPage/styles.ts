@@ -46,3 +46,21 @@ export const register__checkbox = css`
     margin-inline-start: 0;
   }
 `;
+
+export const register__btn = css`
+  display: flex;
+  flex-direction: column;
+  margin-inline-start: 0;
+  div {
+    margin-inline-start: 0;
+    justify-content: center;
+    display: flex;
+    gap: 10px;
+    @media (max-width: 564px) {
+      flex-wrap: wrap;
+    }
+  }
+  @media (max-width: 564px) {
+    flex-wrap: wrap;
+  }
+`;
