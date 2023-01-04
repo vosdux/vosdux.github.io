@@ -1,40 +1,21 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button, Checkbox, Form, Input } from 'antd';
+import { observer } from 'mobx-react-lite';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { authStore } from '@stores/authStore';
+import { formItemLayout, tailFormItemLayout } from '@constants/formLayout';
 import { root, container__login, register__input, login__block, register__checkbox, register__btn } from './styles';
-
-const formItemLayout = {
-  labelCol: {
-    xs: { span: 24 },
-    sm: { span: 8 },
-  },
-  wrapperCol: {
-    xs: { span: 24 },
-    sm: { span: 16 },
-  },
-};
-const tailFormItemLayout = {
-  wrapperCol: {
-    xs: {
-      span: 24,
-      offset: 0,
-    },
-    sm: {
-      span: 16,
-      offset: 8,
-    },
-  },
-};
 
 const SignUp: React.FC = () => {
   const { singnUp, isLoading } = authStore;
   const navigate = useNavigate();
   const [form] = Form.useForm();
 
-  const onFinish = (values) => {
-    singnUp({ email: values.email, password: values.password, secondPassword: values.confirm });
+  const onFinish = async (values) => {
+    await singnUp({ email: values.email, password: values.password, secondPassword: values.confirm }, () =>
+      navigate('/dashboard'),
+    );
   };
 
   return (
@@ -45,11 +26,6 @@ const SignUp: React.FC = () => {
           form={form}
           name="register"
           onFinish={onFinish}
-          initialValues={{
-            residence: ['zhejiang', 'hangzhou', 'xihu'],
-            prefix: '86',
-          }}
-          scrollToFirstError
           className={login__block}
         >
           <h2>Регистрация</h2>
@@ -101,7 +77,7 @@ const SignUp: React.FC = () => {
                   if (!value || getFieldValue('password') === value) {
                     return Promise.resolve();
                   }
-                  return Promise.reject(new Error('The two passwords that you entered do not match!'));
+                  return Promise.reject(new Error('Пароли не совпадают!'));
                 },
               }),
             ]}
@@ -142,4 +118,4 @@ const SignUp: React.FC = () => {
   );
 };
 
-export default SignUp;
+export default observer(SignUp);

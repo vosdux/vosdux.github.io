@@ -1,7 +1,7 @@
 import { message } from 'antd';
 import { makeAutoObservable, runInAction } from 'mobx';
 import { api } from '@api/api';
-import { getError } from './../../utils';
+import { getError } from '@utils/getError';
 
 class AuthStore {
   isLoading = false;
@@ -31,7 +31,7 @@ class AuthStore {
     }
   };
 
-  singnUp = async (data: SignUpBody) => {
+  singnUp = async (data: SignUpBody, onSuccess: () => void) => {
     try {
       runInAction(() => {
         this.isLoading = true;
@@ -43,7 +43,7 @@ class AuthStore {
         this.isActivated = res.data.user.isActivated;
         this.role = res.data.user.role;
       });
-      console.log(res);
+      onSuccess();
     } catch (error) {
       message.error(getError(error));
     } finally {

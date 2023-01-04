@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button, Form, Input } from 'antd';
 import { LockOutlined } from '@ant-design/icons';
+import { formItemLayout, tailFormItemLayout } from '@constants/formLayout';
 import {
   root,
   container__сhangePassword,
@@ -9,29 +10,6 @@ import {
   сhangePassword__block,
   сhangePassword__btn,
 } from './styles';
-
-const formItemLayout = {
-  labelCol: {
-    xs: { span: 24 },
-    sm: { span: 8 },
-  },
-  wrapperCol: {
-    xs: { span: 24 },
-    sm: { span: 16 },
-  },
-};
-const tailFormItemLayout = {
-  wrapperCol: {
-    xs: {
-      span: 24,
-      offset: 0,
-    },
-    sm: {
-      span: 16,
-      offset: 8,
-    },
-  },
-};
 
 const ChangePassword: React.FC = () => {
   const navigate = useNavigate();
