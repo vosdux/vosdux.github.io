@@ -1,7 +1,10 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Button, Checkbox, Form, Input } from 'antd';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
-import { root, container__login, register__input, login__block, register__checkbox } from './styles';
+import { authStore } from '@stores/authStore';
+import { root, container__login, register__input, login__block, register__checkbox, register__btn } from './styles';
+
 const formItemLayout = {
   labelCol: {
     xs: { span: 24 },
@@ -26,10 +29,12 @@ const tailFormItemLayout = {
 };
 
 const SignUp: React.FC = () => {
+  const { singnUp, isLoading } = authStore;
+  const navigate = useNavigate();
   const [form] = Form.useForm();
 
-  const onFinish = (values: string) => {
-    console.log('Received values of form: ', values);
+  const onFinish = (values) => {
+    singnUp({ email: values.email, password: values.password, secondPassword: values.confirm });
   };
 
   return (
@@ -125,10 +130,11 @@ const SignUp: React.FC = () => {
               Я прочитал <a href="">соглашение</a>
             </Checkbox>
           </Form.Item>
-          <Form.Item {...tailFormItemLayout}>
-            <Button type="primary" htmlType="submit">
+          <Form.Item {...tailFormItemLayout} className={register__btn}>
+            <Button type="primary" htmlType="submit" loading={isLoading}>
               Зарегистрироваться
             </Button>
+            Или <a onClick={() => navigate('/login')}>Уже существует аккаунт?</a>
           </Form.Item>
         </Form>
       </div>

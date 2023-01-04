@@ -4,7 +4,13 @@ type AuthorizationBody = {
 };
 
 type AuthorizationResponse = {
-  accesToken: string;
+  user: {
+    email: string;
+    id: string;
+    role: 'USER' | 'ADMIN';
+    isActivated: boolean;
+  };
+  accessToken: string;
   refreshToken: string;
 };
 
