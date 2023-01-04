@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button, Checkbox, Form, Input } from 'antd';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
-import { root, container__login, register__input, login__block, register__checkbox, register__btn } from './styles';
 import { authStore } from '@stores/authStore';
+import { root, container__login, register__input, login__block, register__checkbox, register__btn } from './styles';
+
 const formItemLayout = {
   labelCol: {
     xs: { span: 24 },
@@ -28,18 +29,12 @@ const tailFormItemLayout = {
 };
 
 const SignUp: React.FC = () => {
-  const { singnUp } = authStore;
-
-  // useEffect(() => {
-
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
+  const { singnUp, isLoading } = authStore;
   const navigate = useNavigate();
   const [form] = Form.useForm();
 
   const onFinish = (values) => {
     singnUp({ email: values.email, password: values.password, secondPassword: values.confirm });
-    // console.log('Received values of form: ', values);
   };
 
   return (
@@ -136,12 +131,10 @@ const SignUp: React.FC = () => {
             </Checkbox>
           </Form.Item>
           <Form.Item {...tailFormItemLayout} className={register__btn}>
-            <Button type="primary" onClick={() => navigate('/')}>
-              Назад
-            </Button>
-            <Button type="primary" htmlType="submit">
+            <Button type="primary" htmlType="submit" loading={isLoading}>
               Зарегистрироваться
             </Button>
+            Или <a onClick={() => navigate('/login')}>Уже существует аккаунт?</a>
           </Form.Item>
         </Form>
       </div>

@@ -21,13 +21,13 @@ export const login__block = css`
   padding: 45px 95px;
 
   @media (max-width: 746px) {
-    padding: 25px 55px;
+    padding: 25px 25px;
   }
   @media (max-width: 564px) {
-    padding: 25px 45px;
+    padding: 25px 35px;
   }
   @media (max-width: 440px) {
-    padding: 20px 35px;
+    padding: 15px 25px;
   }
 `;
 
@@ -48,19 +48,14 @@ export const register__checkbox = css`
 `;
 
 export const register__btn = css`
-  display: flex;
-  flex-direction: column;
   margin-inline-start: 0;
-  div {
-    margin-inline-start: 0;
-    justify-content: center;
-    display: flex;
-    gap: 10px;
-    @media (max-width: 564px) {
-      flex-wrap: wrap;
-    }
+  display: flex;
+  flex-direction: row;
+  button {
+    margin-right: 10px;
   }
-  @media (max-width: 564px) {
-    flex-wrap: wrap;
+  div {
+    max-width: 100%;
+    margin-inline-start: 0;
   }
 `;

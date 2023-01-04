@@ -1,11 +1,13 @@
 import { message } from 'antd';
 import { makeAutoObservable, runInAction } from 'mobx';
 import { api } from '@api/api';
+import { getError } from './../../utils';
 
 class AuthStore {
   isLoading = false;
   isAuthenticated = false;
   isActivated = false;
+  role: 'USER' | 'ADMIN' | null = null;
 
   constructor() {
     makeAutoObservable(this);
@@ -35,11 +37,15 @@ class AuthStore {
         this.isLoading = true;
       });
       const res = await api.auth.singnUp(data);
+      localStorage.setItem('token', res.data.accessToken);
+      runInAction(() => {
+        this.isAuthenticated = true;
+        this.isActivated = res.data.user.isActivated;
+        this.role = res.data.user.role;
+      });
       console.log(res);
-
-      alert(res);
     } catch (error) {
-      message.error(error);
+      message.error(getError(error));
     } finally {
       runInAction(() => {
         this.isLoading = false;
