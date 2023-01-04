@@ -16,7 +16,9 @@
       "@pages/*": ["pages/*"],
       "@components/*": ["components/*"],
       "@stores/*": ["stores/*"],
-      "@api/*": ["api/*"]
+      "@api/*": ["api/*"],
+      "@constants/*": ["constants/*"],
+      "@utils/*": ["utils/*"]
     },
     "allowJs": true,
     "resolveJsonModule": true,

@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button, Form, Input } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
+import { formItemLayout, tailFormItemLayout } from '@constants/formLayout';
 import {
   root,
   container__passwordRequest,
@@ -9,28 +10,7 @@ import {
   passwordRequest__btn,
   passwordRequest__input,
 } from './styles';
-const formItemLayout = {
-  labelCol: {
-    xs: { span: 24 },
-    sm: { span: 8 },
-  },
-  wrapperCol: {
-    xs: { span: 24 },
-    sm: { span: 16 },
-  },
-};
-const tailFormItemLayout = {
-  wrapperCol: {
-    xs: {
-      span: 24,
-      offset: 0,
-    },
-    sm: {
-      span: 16,
-      offset: 8,
-    },
-  },
-};
+
 const PasswordRequest: React.FC = () => {
   const navigate = useNavigate();
   const [form] = Form.useForm();
