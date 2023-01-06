@@ -19,3 +19,8 @@ type SignUpBody = {
   password: string;
   secondPassword: string;
 };
+
+
+type СhangePasswordRequest = {
+  email: string;
+};

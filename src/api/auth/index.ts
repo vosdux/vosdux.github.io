@@ -16,3 +16,11 @@ export const singnUp = async (data: SignUpBody, config?: AxiosRequestConfig) => 
     throw error;
   }
 };
+
+export const changePasswordRequest = async (data: СhangePasswordRequest) => {
+  try {
+    return await makeRequest.post<AuthorizationResponse>('/change-password-request', data);
+  } catch (error) {
+    throw error;
+  }
+};
