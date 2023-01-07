@@ -57,6 +57,23 @@ class AuthStore {
       });
     }
   };
+
+  changePasswordRequest = async (data: СhangePasswordRequest) => {
+    try {
+      runInAction(() => {
+        this.isLoading = true;
+      });
+      const res = await api.auth.changePasswordRequest(data);
+      res.status;
+      message.success({ content: 'Сообщение отправлино к вам на почту', duration: 5 });
+    } catch (error) {
+      message.error(getError(error));
+    } finally {
+      runInAction(() => {
+        this.isLoading = false;
+      });
+    }
+  };
 }
 
 export const authStore = new AuthStore();
