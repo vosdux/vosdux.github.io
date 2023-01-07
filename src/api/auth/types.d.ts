@@ -19,3 +19,9 @@ type SignUpBody = {
   password: string;
   secondPassword: string;
 };
+
+type changePasswordBody = {
+  password: string;
+  secondPassword: string;
+  chnageLink: string;
+};

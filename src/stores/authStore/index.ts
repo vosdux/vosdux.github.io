@@ -52,6 +52,22 @@ class AuthStore {
       });
     }
   };
+
+  changePassword = async (data: changePasswordBody, onSuccess: () => void) => {
+    try {
+      runInAction(() => {
+        this.isLoading = true;
+      });
+      await api.auth.changePassword(data);
+      onSuccess();
+    } catch (error) {
+      message.error(getError(error));
+    } finally {
+      runInAction(() => {
+        this.isLoading = false;
+      });
+    }
+  };
 }
 
 export const authStore = new AuthStore();
