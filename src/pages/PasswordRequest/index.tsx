@@ -1,7 +1,9 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { observer } from 'mobx-react-lite';
 import { Button, Form, Input } from 'antd';
+import { authStore } from '@stores/authStore';
 import { UserOutlined } from '@ant-design/icons';
+import { formItemLayout, tailFormItemLayout } from '@constants/formLayout';
 import {
   root,
   container__passwordRequest,
@@ -9,35 +11,15 @@ import {
   passwordRequest__btn,
   passwordRequest__input,
 } from './styles';
-const formItemLayout = {
-  labelCol: {
-    xs: { span: 24 },
-    sm: { span: 8 },
-  },
-  wrapperCol: {
-    xs: { span: 24 },
-    sm: { span: 16 },
-  },
-};
-const tailFormItemLayout = {
-  wrapperCol: {
-    xs: {
-      span: 24,
-      offset: 0,
-    },
-    sm: {
-      span: 16,
-      offset: 8,
-    },
-  },
-};
+
 const PasswordRequest: React.FC = () => {
-  const navigate = useNavigate();
+  const { changePasswordRequest, isLoading } = authStore;
   const [form] = Form.useForm();
 
-  const onFinish = (values: string) => {
-    console.log('Received values of form: ', values);
+  const onFinish = (values) => {
+    changePasswordRequest({ email: values.email });
   };
+
   return (
     <div className={root}>
       <div className={container__passwordRequest}>
@@ -71,7 +53,7 @@ const PasswordRequest: React.FC = () => {
             <Input className={passwordRequest__input} prefix={<UserOutlined />} placeholder="E-mail" />
           </Form.Item>
           <Form.Item {...tailFormItemLayout} className={passwordRequest__btn}>
-            <Button type="primary" htmlType="submit">
+            <Button type="primary" htmlType="submit" loading={isLoading}>
               Далее
             </Button>
           </Form.Item>
@@ -81,4 +63,4 @@ const PasswordRequest: React.FC = () => {
   );
 };
 
-export default PasswordRequest;
+export default observer(PasswordRequest);

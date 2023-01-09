@@ -1,35 +1,21 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Button, Checkbox, Form, Input } from 'antd';
+import { observer } from 'mobx-react-lite';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
-import { root, container__login, register__input, login__block, register__checkbox } from './styles';
-const formItemLayout = {
-  labelCol: {
-    xs: { span: 24 },
-    sm: { span: 8 },
-  },
-  wrapperCol: {
-    xs: { span: 24 },
-    sm: { span: 16 },
-  },
-};
-const tailFormItemLayout = {
-  wrapperCol: {
-    xs: {
-      span: 24,
-      offset: 0,
-    },
-    sm: {
-      span: 16,
-      offset: 8,
-    },
-  },
-};
+import { authStore } from '@stores/authStore';
+import { formItemLayout, tailFormItemLayout } from '@constants/formLayout';
+import { root, container__login, register__input, login__block, register__checkbox, register__btn } from './styles';
 
 const SignUp: React.FC = () => {
+  const { singnUp, isLoading } = authStore;
+  const navigate = useNavigate();
   const [form] = Form.useForm();
 
-  const onFinish = (values: string) => {
-    console.log('Received values of form: ', values);
+  const onFinish = async (values) => {
+    await singnUp({ email: values.email, password: values.password, secondPassword: values.confirm }, () =>
+      navigate('/dashboard'),
+    );
   };
 
   return (
@@ -40,11 +26,6 @@ const SignUp: React.FC = () => {
           form={form}
           name="register"
           onFinish={onFinish}
-          initialValues={{
-            residence: ['zhejiang', 'hangzhou', 'xihu'],
-            prefix: '86',
-          }}
-          scrollToFirstError
           className={login__block}
         >
           <h2>Регистрация</h2>
@@ -96,7 +77,7 @@ const SignUp: React.FC = () => {
                   if (!value || getFieldValue('password') === value) {
                     return Promise.resolve();
                   }
-                  return Promise.reject(new Error('The two passwords that you entered do not match!'));
+                  return Promise.reject(new Error('Пароли не совпадают!'));
                 },
               }),
             ]}
@@ -125,10 +106,11 @@ const SignUp: React.FC = () => {
               Я прочитал <a href="">соглашение</a>
             </Checkbox>
           </Form.Item>
-          <Form.Item {...tailFormItemLayout}>
-            <Button type="primary" htmlType="submit">
+          <Form.Item {...tailFormItemLayout} className={register__btn}>
+            <Button type="primary" htmlType="submit" loading={isLoading}>
               Зарегистрироваться
             </Button>
+            Или <a onClick={() => navigate('/login')}>Уже существует аккаунт?</a>
           </Form.Item>
         </Form>
       </div>
@@ -136,4 +118,4 @@ const SignUp: React.FC = () => {
   );
 };
 
-export default SignUp;
+export default observer(SignUp);

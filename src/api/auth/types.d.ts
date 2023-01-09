@@ -4,7 +4,13 @@ type AuthorizationBody = {
 };
 
 type AuthorizationResponse = {
-  accesToken: string;
+  user: {
+    email: string;
+    id: string;
+    role: 'USER' | 'ADMIN';
+    isActivated: boolean;
+  };
+  accessToken: string;
   refreshToken: string;
 };
 
@@ -12,4 +18,9 @@ type SignUpBody = {
   email: string;
   password: string;
   secondPassword: string;
+};
+
+
+type СhangePasswordRequest = {
+  email: string;
 };

@@ -6,11 +6,11 @@ import { authStore } from '@stores/authStore';
 import { root, container__login, login__btn, login__block } from './styles';
 
 const LoginPage: React.FC = () => {
-  const { login } = authStore;
+  const { login, isLoading } = authStore;
   const navigate = useNavigate();
 
-  const onFinish = (values: loginData) => {
-    login(values);
+  const onFinish = async (values) => {
+    await login({ username: values.username, password: values.password }, () => navigate('/dashboard'));
   };
 
   const emailValidator = async (_: unknown, email: string) => {
@@ -48,7 +48,7 @@ const LoginPage: React.FC = () => {
           </Form.Item>
 
           <Form.Item className={login__btn}>
-            <Button type="primary" htmlType="submit">
+            <Button type="primary" htmlType="submit" loading={isLoading}>
               Войти
             </Button>
             Или <a onClick={() => navigate('/sign-up')}>зарегистрируйтесь прямо сейчас!</a>

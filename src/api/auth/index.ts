@@ -11,7 +11,15 @@ export const login = async (data: AuthorizationBody, config?: AxiosRequestConfig
 
 export const singnUp = async (data: SignUpBody, config?: AxiosRequestConfig) => {
   try {
-    return await makeRequest.post<AuthorizationResponse>('/sing-up', data, config);
+    return await makeRequest.post<AuthorizationResponse>('/registration', data, config);
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const changePasswordRequest = async (data: СhangePasswordRequest, config?: AxiosRequestConfig) => {
+  try {
+    return await makeRequest.post('/change-password-request', data, config);
   } catch (error) {
     throw error;
   }
