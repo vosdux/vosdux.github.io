@@ -13,17 +13,22 @@ class AuthStore {
     makeAutoObservable(this);
   }
 
-  login = async (data: AuthorizationBody) => {
+  login = async (data: AuthorizationBody, onSuccess: () => void) => {
     try {
       runInAction(() => {
         this.isLoading = true;
       });
 
       const res = await api.auth.login(data);
-
-      alert(res);
+      localStorage.setItem('token', res.data.accessToken);
+      runInAction(() => {
+        this.isAuthenticated = true;
+        this.isActivated = res.data.user.isActivated;
+        this.role = res.data.user.role;
+      });
+      onSuccess();
     } catch (error) {
-      message.error('error');
+      message.error(getError(error));
     } finally {
       runInAction(() => {
         this.isLoading = false;
@@ -44,6 +49,23 @@ class AuthStore {
         this.role = res.data.user.role;
       });
       onSuccess();
+    } catch (error) {
+      message.error(getError(error));
+    } finally {
+      runInAction(() => {
+        this.isLoading = false;
+      });
+    }
+  };
+
+  changePasswordRequest = async (data: СhangePasswordRequest) => {
+    try {
+      runInAction(() => {
+        this.isLoading = true;
+      });
+      const res = await api.auth.changePasswordRequest(data);
+      res.status;
+      message.success({ content: 'Сообщение отправлино к вам на почту', duration: 5 });
     } catch (error) {
       message.error(getError(error));
     } finally {

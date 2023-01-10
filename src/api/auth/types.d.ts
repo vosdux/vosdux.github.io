@@ -25,3 +25,7 @@ type changePasswordBody = {
   secondPassword: string;
   chnageLink: string;
 };
+
+type СhangePasswordRequest = {
+  email: string;
+};
