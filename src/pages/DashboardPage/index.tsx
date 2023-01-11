@@ -1,45 +1,45 @@
-import React from 'react';
-import { Button } from 'antd';
-import { MailOutlined } from '@ant-design/icons';
-import {
-  root,
-  container__emailVerify,
-  emailVerify__block,
-  emailVerify__bottomBlock,
-  emailVerify__topBlock,
-} from './styles';
-const DashboardPage: React.FC = ({ email }: DashboardTypes) => {
-  return (
-    <div className={root}>
-      <div className={container__emailVerify}>
-        <div className={emailVerify__block}>
-          <div className={emailVerify__topBlock}>
-            <div>
-              <MailOutlined style={{ fontSize: '40px' }} />
-              <h3>Проверьте свой адрес электронной почты</h3>
-            </div>
-            <div>
-              <p>
-                адрес, который у нас в настоящее время есть для вашей учетной записи,<span>{email}</span>
-              </p>
-            </div>
-          </div>
-          <div className={emailVerify__bottomBlock}>
-            <div>
-              <p>
-                Подтвердите адрес электронной почты, если письмо не пришло нажмите кнопку Отправить или проверьте папку
-                спам
-              </p>
-            </div>
-            <div>
-              <Button type="primary">Отправить</Button> <Button type="primary">Назад</Button>
-            </div>
-            <p>не правильный адрес? <span>Обновите свой адрес электронной почты</span></p>
-          </div>
-        </div>
-      </div>
-    </div>
+import React, { useState } from 'react';
+import { Breadcrumb, Layout, Menu, theme } from 'antd';
+import { UserOutlined } from '@ant-design/icons';
+import type { MenuProps } from 'antd';
+import { observer } from 'mobx-react-lite';
+import { authStore } from '../../stores/authStore/index';
+import { VerifyEmail } from '../../components/VerifyEmail/index';
+
+const { Header, Content, Footer, Sider } = Layout;
+
+type MenuItem = Required<MenuProps>['items'][number];
+
+const items: MenuItem[] = [{ key: '1', icon: <UserOutlined />, label: 'User' }];
+
+const DashboardPage = () => {
+  const { isActivated, email } = authStore;
+  const [collapsed, setCollapsed] = useState(false);
+  const {
+    token: { colorBgContainer },
+  } = theme.useToken();
+
+  return isActivated ? (
+    <Layout style={{ minHeight: '100vh' }}>
+      <Sider collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
+        <div style={{ height: 32, margin: 16, background: 'rgba(255, 255, 255, 0.2)' }} />
+        <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline" items={items} />
+      </Sider>
+      <Layout className="site-layout">
+        <Header style={{ padding: 0, background: colorBgContainer }} />
+        <Content style={{ margin: '0 16px' }}>
+          <Breadcrumb style={{ margin: '16px 0' }}>
+            <Breadcrumb.Item>User</Breadcrumb.Item>
+            <Breadcrumb.Item>Bill</Breadcrumb.Item>
+          </Breadcrumb>
+          <div style={{ padding: 24, minHeight: 360, background: colorBgContainer }}>Bill is a cat.</div>
+        </Content>
+        <Footer style={{ textAlign: 'center' }}>Ant Design ©2023 Created by Ant UED</Footer>
+      </Layout>
+    </Layout>
+  ) : (
+    <VerifyEmail email={email} />
   );
 };
 
-export default DashboardPage;
+export default observer(DashboardPage);

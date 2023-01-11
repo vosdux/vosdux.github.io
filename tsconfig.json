@@ -18,7 +18,8 @@
       "@stores/*": ["stores/*"],
       "@api/*": ["api/*"],
       "@constants/*": ["constants/*"],
-      "@utils/*": ["utils/*"]
+      "@utils/*": ["utils/*"],
+      "@styles/*": ["styles/*"]
     },
     "allowJs": true,
     "resolveJsonModule": true,

@@ -1,30 +1,30 @@
-import React, {useEffect} from 'react';
-import { observer } from 'mobx-react-lite';
+import React, { useEffect } from 'react';
 import WOW from 'wowjs';
-import HeaderComponent from './HeaderComponent';
-import AboutComponent from './AboutComponent';
-import AdvantageComponent from './AdvantageComponent';
-import FooterComponent from './FooterComponent';
-import MediaComponent from './MediaComponent';
-import ReviewComponent from './ReviewComponent';
-
+import { HeaderComponent } from '@components/HeaderComponent';
+import { AboutComponent } from '@components/AboutComponent';
+import { AdvantageComponent } from '@components/AdvantageComponent';
+import { FooterComponent } from '@components/FooterComponent';
+import { MediaComponent } from '@components/MediaComponent';
+import { ReviewComponent } from '@components/ReviewComponent';
+import 'animate.css';
 
 const LandingPage = () => {
   useEffect(() => {
     new WOW.WOW({
-      live: false
+      live: false,
     }).init();
-  }, [])
+  }, []);
+
   return (
     <>
-  <HeaderComponent />
-  <AboutComponent />
-  <AdvantageComponent />
-  <ReviewComponent />
-  <MediaComponent />
-  <FooterComponent />
-  </>
+      <HeaderComponent />
+      <AboutComponent />
+      <AdvantageComponent />
+      <ReviewComponent />
+      <MediaComponent />
+      <FooterComponent />
+    </>
   );
 };
 
-export default observer(LandingPage);
+export default LandingPage;
