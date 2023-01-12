@@ -1,23 +1,30 @@
-import { Button } from 'antd'; 
 import React, { useEffect } from 'react';
-import { observer } from 'mobx-react-lite';
-import { useNavigate } from 'react-router-dom';
-import { authStore } from '@stores/authStore';
-import { root } from './styles';
+import WOW from 'wowjs';
+import { HeaderComponent } from '@components/HeaderComponent';
+import { AboutComponent } from '@components/AboutComponent';
+import { AdvantageComponent } from '@components/AdvantageComponent';
+import { FooterComponent } from '@components/FooterComponent';
+import { MediaComponent } from '@components/MediaComponent';
+import { ReviewComponent } from '@components/ReviewComponent';
+import 'animate.css';
 
 const LandingPage = () => {
-  const { login } = authStore;
-  const navigate = useNavigate();
-
   useEffect(() => {
-    login({ username: '', password: '' });
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    new WOW.WOW({
+      live: false,
+    }).init();
   }, []);
 
-  return <div className={root}>
-    <Button onClick={() => navigate('sign-up')} >sign up</Button>
-    <Button className={root} onClick={() => navigate('login')} >login</Button>
-  </div>;
+  return (
+    <>
+      <HeaderComponent />
+      <AboutComponent />
+      <AdvantageComponent />
+      <ReviewComponent />
+      <MediaComponent />
+      <FooterComponent />
+    </>
+  );
 };
 
-export default observer(LandingPage);
+export default LandingPage;

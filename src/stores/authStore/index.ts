@@ -7,6 +7,7 @@ class AuthStore {
   isLoading = false;
   isAuthenticated = false;
   isActivated = false;
+  email = '';
   role: 'USER' | 'ADMIN' | null = null;
 
   constructor() {
@@ -19,12 +20,13 @@ class AuthStore {
         this.isLoading = true;
       });
 
-      const res = await api.auth.login(data);
-      localStorage.setItem('token', res.data.accessToken);
+      const { data: { accessToken, user } } = await api.auth.login(data);
+      localStorage.setItem('token', accessToken);
       runInAction(() => {
         this.isAuthenticated = true;
-        this.isActivated = res.data.user.isActivated;
-        this.role = res.data.user.role;
+        this.isActivated = user.isActivated;
+        this.role = user.role;
+        this.email = user.email;
       });
       onSuccess();
     } catch (error) {
@@ -41,12 +43,13 @@ class AuthStore {
       runInAction(() => {
         this.isLoading = true;
       });
-      const res = await api.auth.singnUp(data);
-      localStorage.setItem('token', res.data.accessToken);
+      const { data: { accessToken, user } } = await api.auth.singnUp(data);
+      localStorage.setItem('token', accessToken);
       runInAction(() => {
         this.isAuthenticated = true;
-        this.isActivated = res.data.user.isActivated;
-        this.role = res.data.user.role;
+        this.isActivated = user.isActivated;
+        this.role = user.role;
+        this.email = user.email;
       });
       onSuccess();
     } catch (error) {

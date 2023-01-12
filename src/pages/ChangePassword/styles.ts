@@ -7,7 +7,6 @@ export const root = css`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #fff;
 `;
 export const container__сhangePassword = css`
   box-shadow: 0px 7px 10px rgba(0, 0, 0, 0.25);
@@ -15,6 +14,7 @@ export const container__сhangePassword = css`
   border: 3px solid;
   border-image-source: linear-gradient(135.59deg, rgba(88, 130, 193, 0.49) 1.28%, rgba(88, 130, 193, 0.11) 96.26%);
   padding: 5px;
+  background: #fff;
 `;
 export const сhangePassword__block = css`
   padding: 45px 85px;
