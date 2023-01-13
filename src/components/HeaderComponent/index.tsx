@@ -1,11 +1,13 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import classNames from 'classnames';
+import { observer } from 'mobx-react-lite';
 import { MagicLetter } from '@components/MagicLetter';
 import { Menuitem } from '@components/MenuItem';
 import { CustomParticles } from '@components/CustomParticles';
 import { getFadeInAnimation } from '@utils/getFadeInAnimation';
-import { FIRST_ANIMATED_WORD, MENU_ITEMS, SECOND_ANIMATED_WORD } from './constants';
+import { authStore } from '@stores/authStore/index';
+import { FIRST_ANIMATED_WORD, AUTH_MENU_ITEMS, NON_AUTH_MENU_ITEMS, SECOND_ANIMATED_WORD } from './constants';
 import {
   header,
   centered,
@@ -22,15 +24,18 @@ const slowScroll = (id) => {
   });
 };
 
-export const HeaderComponent = () => {
+export const HeaderComponent = observer(() => {
   const navigate = useNavigate();
+  const { isAuthenticated } = authStore;
+
+  const menuItems = isAuthenticated ? AUTH_MENU_ITEMS : NON_AUTH_MENU_ITEMS;
 
   return (
     <>
       <CustomParticles />
       <nav className={nav}>
         <ul className={links}>
-          {MENU_ITEMS.map(({ to, children, type }) => (
+          {menuItems.map(({ to, children, type }) => (
             <Menuitem key={to} onClick={type === 'scroll' ? () => slowScroll(to) : () => navigate(to)}>
               {children}
             </Menuitem>
@@ -42,7 +47,7 @@ export const HeaderComponent = () => {
           {FIRST_ANIMATED_WORD.map(({ letter, iterations }, index) => (
             <MagicLetter iterations={iterations} min={0} max={9} letter={letter} key={index} />
           ))}
-          <li style={{ padding: '5px' }}> </li>
+          <span style={{ padding: '5px' }} />
           {SECOND_ANIMATED_WORD.map(({ letter, iterations }, index) => (
             <MagicLetter iterations={iterations} min={0} max={9} letter={letter} key={index} />
           ))}
@@ -53,4 +58,4 @@ export const HeaderComponent = () => {
       </header>
     </>
   );
-};
+});

@@ -5,8 +5,8 @@ import { observer } from 'mobx-react-lite';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { authStore } from '@stores/authStore';
 import { formItemLayout, tailFormItemLayout } from '@constants/formLayout';
-import { root, container__login, register__input, login__block, register__checkbox, register__btn } from './styles';
 import { CustomParticles } from '@components/CustomParticles';
+import { root, container__login, register__input, login__block, register__checkbox, register__btn } from './styles';
 
 const SignUp: React.FC = () => {
   const { singnUp, isLoading } = authStore;
@@ -14,9 +14,10 @@ const SignUp: React.FC = () => {
   const [form] = Form.useForm();
 
   const onFinish = async (values) => {
-    await singnUp({ email: values.email, password: values.password, secondPassword: values.confirm }, () =>
-      navigate('/dashboard')
-    );
+    try {
+      await singnUp({ email: values.email, password: values.password, secondPassword: values.confirm });
+      navigate('/dashboard');
+    } catch (error) { }
   };
 
   return (
