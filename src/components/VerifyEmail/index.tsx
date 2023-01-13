@@ -13,9 +13,11 @@ import {
 
 type Props = {
   email: string;
+  isResendLoading: boolean;
+  onResendClick: () => void;
 };
 
-export const VerifyEmail: FC<Props> = ({ email }) => {
+export const VerifyEmail: FC<Props> = ({ email, isResendLoading, onResendClick }) => {
   const navigate = useNavigate();
 
   return (
@@ -30,7 +32,7 @@ export const VerifyEmail: FC<Props> = ({ email }) => {
             </div>
             <div>
               <p>
-                адрес, который у нас в настоящее время есть для вашей учетной записи,<span>{email}</span>
+                адрес, который у нас в настоящее время есть для вашей учетной записи, <span>{email}</span>
               </p>
             </div>
           </div>
@@ -42,9 +44,8 @@ export const VerifyEmail: FC<Props> = ({ email }) => {
               </p>
             </div>
             <div>
-              <Button type="primary">Отправить</Button> <Button onClick={() => navigate('/')} type="primary">Назад</Button>
+              <Button loading={isResendLoading} onClick={onResendClick} type="primary">Отправить</Button> <Button onClick={() => navigate('/')} type="primary">Назад</Button>
             </div>
-            <p>не правильный адрес? <span>Обновите свой адрес электронной почты</span></p>
           </div>
         </div>
       </div>

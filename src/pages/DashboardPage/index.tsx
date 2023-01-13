@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Breadcrumb, Layout, Menu, theme } from 'antd';
-import { UserOutlined } from '@ant-design/icons';
-import type { MenuProps } from 'antd';
+import { useNavigate } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
+import { UserOutlined } from '@ant-design/icons';
 import { authStore } from '../../stores/authStore/index';
 import { VerifyEmail } from '../../components/VerifyEmail/index';
+import type { MenuProps } from 'antd';
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -13,11 +14,21 @@ type MenuItem = Required<MenuProps>['items'][number];
 const items: MenuItem[] = [{ key: '1', icon: <UserOutlined />, label: 'User' }];
 
 const DashboardPage = () => {
-  const { isActivated, email } = authStore;
+  const { isActivated, email, isAuthenticated, isLoading, resendEmail } = authStore;
   const [collapsed, setCollapsed] = useState(false);
   const {
     token: { colorBgContainer },
   } = theme.useToken();
+  const navigate = useNavigate();
+
+  console.log(isAuthenticated, 'isAuthenticated');
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      navigate('/');
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isAuthenticated]);
 
   return isActivated ? (
     <Layout style={{ minHeight: '100vh' }}>
@@ -38,7 +49,7 @@ const DashboardPage = () => {
       </Layout>
     </Layout>
   ) : (
-    <VerifyEmail email={email} />
+    <VerifyEmail isResendLoading={isLoading} onResendClick={() => resendEmail()} email={email} />
   );
 };
 

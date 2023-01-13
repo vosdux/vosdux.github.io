@@ -26,5 +26,5 @@ export const MagicLetter: FC<Props> = ({ iterations, min, max, letter }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return <li className={root}>{child}</li>;
+  return <span className={root}>{child}</span>;
 };

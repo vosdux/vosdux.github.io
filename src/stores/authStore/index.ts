@@ -14,7 +14,7 @@ class AuthStore {
     makeAutoObservable(this);
   }
 
-  login = async (data: AuthorizationBody, onSuccess: () => void) => {
+  login = async (data: AuthorizationBody) => {
     try {
       runInAction(() => {
         this.isLoading = true;
@@ -28,7 +28,6 @@ class AuthStore {
         this.role = user.role;
         this.email = user.email;
       });
-      onSuccess();
     } catch (error) {
       message.error(getError(error));
     } finally {
@@ -38,7 +37,7 @@ class AuthStore {
     }
   };
 
-  singnUp = async (data: SignUpBody, onSuccess: () => void) => {
+  singnUp = async (data: SignUpBody) => {
     try {
       runInAction(() => {
         this.isLoading = true;
@@ -51,7 +50,6 @@ class AuthStore {
         this.role = user.role;
         this.email = user.email;
       });
-      onSuccess();
     } catch (error) {
       message.error(getError(error));
     } finally {
@@ -66,9 +64,24 @@ class AuthStore {
       runInAction(() => {
         this.isLoading = true;
       });
-      const res = await api.auth.changePasswordRequest(data);
-      res.status;
+      await api.auth.changePasswordRequest(data);
       message.success({ content: 'Сообщение отправлино к вам на почту', duration: 5 });
+    } catch (error) {
+      message.error(getError(error));
+    } finally {
+      runInAction(() => {
+        this.isLoading = false;
+      });
+    }
+  };
+
+  resendEmail = async () => {
+    try {
+      runInAction(() => {
+        this.isLoading = true;
+      });
+      await api.auth.resendEmail({ email: this.email });
+      message.success('Письмо отравлено');
     } catch (error) {
       message.error(getError(error));
     } finally {

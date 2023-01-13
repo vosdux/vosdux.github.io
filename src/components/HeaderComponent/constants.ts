@@ -1,10 +1,19 @@
-export const MENU_ITEMS = [
+const COMMON_MENU_ITEMS = [
   { type: 'scroll', to: 'about', children: 'О нас' },
   { type: 'scroll', to: 'advantage', children: 'Преимущества' },
   { type: 'scroll', to: 'review', children: 'Отзывы' },
   { type: 'scroll', to: 'media', children: 'Видео' },
+];
+
+export const NON_AUTH_MENU_ITEMS = [
+  ...COMMON_MENU_ITEMS,
   { type: 'link', to: 'sign-up', children: 'Зарегестрироваться' },
   { type: 'link', to: 'login', children: 'Войти' },
+];
+
+export const AUTH_MENU_ITEMS = [
+  ...COMMON_MENU_ITEMS,
+  { type: 'link', to: 'dashboards', children: 'Личный кабинет' },
 ];
 
 export const FIRST_ANIMATED_WORD = [

@@ -1,4 +1,5 @@
 import { css } from '@linaria/core';
+import { landigFont } from '@styles/global';
 
 export const root = css`
   width: 100%;
@@ -7,6 +8,7 @@ export const root = css`
   display: flex;
   justify-content: center;
   align-items: center;
+  font-family: ${landigFont};
 `;
 
 export const container__emailVerify = css`

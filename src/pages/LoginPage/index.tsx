@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button, Checkbox, Form, Input } from 'antd';
+import { observer } from 'mobx-react-lite';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { CustomParticles } from '@components/CustomParticles';
 import { authStore } from '@stores/authStore';
@@ -11,7 +12,10 @@ const LoginPage: React.FC = () => {
   const navigate = useNavigate();
 
   const onFinish = async (values) => {
-    await login({ username: values.username, password: values.password }, () => navigate('/dashboard'));
+    try {
+      await login({ username: values.username, password: values.password });
+      navigate('/dashboard');
+    } catch (error) {}
   };
 
   const emailValidator = async (_: unknown, email: string) => {
@@ -63,4 +67,4 @@ const LoginPage: React.FC = () => {
   );
 };
 
-export default LoginPage;
+export default observer(LoginPage);
