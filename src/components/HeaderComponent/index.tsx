@@ -8,14 +8,7 @@ import { CustomParticles } from '@components/CustomParticles';
 import { getFadeInAnimation } from '@utils/getFadeInAnimation';
 import { authStore } from '@stores/authStore/index';
 import { FIRST_ANIMATED_WORD, AUTH_MENU_ITEMS, NON_AUTH_MENU_ITEMS, SECOND_ANIMATED_WORD } from './constants';
-import {
-  header,
-  centered,
-  centeredList,
-  centered__organization,
-  links,
-  nav,
-} from './styles';
+import { header, centered, centeredList, centered__organization, links, nav } from './styles';
 
 const slowScroll = (id) => {
   document.getElementById(id).scrollIntoView({
@@ -26,22 +19,24 @@ const slowScroll = (id) => {
 
 export const HeaderComponent = observer(() => {
   const navigate = useNavigate();
-  const { isAuthenticated } = authStore;
+  const { isAuthenticated, isLoading } = authStore;
 
   const menuItems = isAuthenticated ? AUTH_MENU_ITEMS : NON_AUTH_MENU_ITEMS;
 
   return (
     <>
       <CustomParticles />
-      <nav className={nav}>
-        <ul className={links}>
-          {menuItems.map(({ to, children, type }) => (
-            <Menuitem key={to} onClick={type === 'scroll' ? () => slowScroll(to) : () => navigate(to)}>
-              {children}
-            </Menuitem>
-          ))}
-        </ul>
-      </nav>
+      {!isLoading && (
+        <nav className={classNames(nav, getFadeInAnimation('Down'))}>
+          <ul className={links}>
+            {menuItems.map(({ to, children, type }) => (
+              <Menuitem key={to} onClick={type === 'scroll' ? () => slowScroll(to) : () => navigate(to)}>
+                {children}
+              </Menuitem>
+            ))}
+          </ul>
+        </nav>
+      )}
       <header className={header}>
         <ul className={centeredList}>
           {FIRST_ANIMATED_WORD.map(({ letter, iterations }, index) => (

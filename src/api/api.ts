@@ -1,4 +1,4 @@
-import { login, singnUp, changePasswordRequest, resendEmail } from './auth/index';
+import { login, singnUp, changePasswordRequest, resendEmail, checkAuthenticated } from './auth/index';
 
 export const api = {
   auth: {
@@ -6,5 +6,6 @@ export const api = {
     singnUp,
     changePasswordRequest,
     resendEmail,
+    checkAuthenticated,
   },
 };
