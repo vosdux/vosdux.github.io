@@ -32,7 +32,7 @@ module.exports = {
         ignoreClassFieldInitialValues: true,
         ignoreDefaultValues: true,
         ignoreArrayIndexes: true,
-        ignore: [1, 10, 100],
+        ignore: [0, 1, 10, 100],
       },
     ],
     'import/no-duplicates': 'warn',

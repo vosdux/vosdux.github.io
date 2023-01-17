@@ -7,26 +7,29 @@ class AuthStore {
   isLoading = false;
   isAuthenticated = false;
   isActivated = false;
+  email = '';
   role: 'USER' | 'ADMIN' | null = null;
 
   constructor() {
     makeAutoObservable(this);
   }
 
-  login = async (data: AuthorizationBody, onSuccess: () => void) => {
+  login = async (data: AuthorizationBody) => {
     try {
       runInAction(() => {
         this.isLoading = true;
       });
 
-      const res = await api.auth.login(data);
-      localStorage.setItem('token', res.data.accessToken);
+      const {
+        data: { accessToken, user },
+      } = await api.auth.login(data);
+      localStorage.setItem('token', accessToken);
       runInAction(() => {
         this.isAuthenticated = true;
-        this.isActivated = res.data.user.isActivated;
-        this.role = res.data.user.role;
+        this.isActivated = user.isActivated;
+        this.role = user.role;
+        this.email = user.email;
       });
-      onSuccess();
     } catch (error) {
       message.error(getError(error));
     } finally {
@@ -36,19 +39,21 @@ class AuthStore {
     }
   };
 
-  singnUp = async (data: SignUpBody, onSuccess: () => void) => {
+  singnUp = async (data: SignUpBody) => {
     try {
       runInAction(() => {
         this.isLoading = true;
       });
-      const res = await api.auth.singnUp(data);
-      localStorage.setItem('token', res.data.accessToken);
+      const {
+        data: { accessToken, user },
+      } = await api.auth.singnUp(data);
+      localStorage.setItem('token', accessToken);
       runInAction(() => {
         this.isAuthenticated = true;
-        this.isActivated = res.data.user.isActivated;
-        this.role = res.data.user.role;
+        this.isActivated = user.isActivated;
+        this.role = user.role;
+        this.email = user.email;
       });
-      onSuccess();
     } catch (error) {
       message.error(getError(error));
     } finally {
@@ -63,9 +68,24 @@ class AuthStore {
       runInAction(() => {
         this.isLoading = true;
       });
-      const res = await api.auth.changePasswordRequest(data);
-      res.status;
+      await api.auth.changePasswordRequest(data);
       message.success({ content: 'Сообщение отправлино к вам на почту', duration: 5 });
+    } catch (error) {
+      message.error(getError(error));
+    } finally {
+      runInAction(() => {
+        this.isLoading = false;
+      });
+    }
+  };
+
+  resendEmail = async () => {
+    try {
+      runInAction(() => {
+        this.isLoading = true;
+      });
+      await api.auth.resendEmail({ email: this.email });
+      message.success('Письмо отравлено');
     } catch (error) {
       message.error(getError(error));
     } finally {

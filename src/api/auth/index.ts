@@ -32,3 +32,11 @@ export const changePassword = async (data: changePasswordBody, config?: AxiosReq
     throw error;
   }
 };
+
+export const resendEmail = async (data: { email: string }, config?: AxiosRequestConfig) => {
+  try {
+    return await makeRequest.post('/resend', data, config);
+  } catch (error) {
+    throw error;
+  }
+};

@@ -22,6 +22,7 @@ module.exports = {
       '@api': path.join(__dirname, 'src/api'),
       '@constants': path.join(__dirname, 'src/constants'),
       '@utils': path.join(__dirname, 'src/utils'),
+      '@styles': path.join(__dirname, 'src/styles'),
     },
   },
   module: {
