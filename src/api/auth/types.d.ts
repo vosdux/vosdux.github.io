@@ -20,6 +20,11 @@ type SignUpBody = {
   secondPassword: string;
 };
 
+type changePasswordBody = {
+  password: string;
+  secondPassword: string;
+  chnageLink: string;
+};
 
 type СhangePasswordRequest = {
   email: string;

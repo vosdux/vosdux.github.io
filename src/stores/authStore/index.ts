@@ -20,7 +20,9 @@ class AuthStore {
         this.isLoading = true;
       });
 
-      const { data: { accessToken, user } } = await api.auth.login(data);
+      const {
+        data: { accessToken, user },
+      } = await api.auth.login(data);
       localStorage.setItem('token', accessToken);
       runInAction(() => {
         this.isAuthenticated = true;
@@ -42,7 +44,9 @@ class AuthStore {
       runInAction(() => {
         this.isLoading = true;
       });
-      const { data: { accessToken, user } } = await api.auth.singnUp(data);
+      const {
+        data: { accessToken, user },
+      } = await api.auth.singnUp(data);
       localStorage.setItem('token', accessToken);
       runInAction(() => {
         this.isAuthenticated = true;
@@ -82,6 +86,22 @@ class AuthStore {
       });
       await api.auth.resendEmail({ email: this.email });
       message.success('Письмо отравлено');
+    } catch (error) {
+      message.error(getError(error));
+    } finally {
+      runInAction(() => {
+        this.isLoading = false;
+      });
+    }
+  };
+
+  changePassword = async (data: changePasswordBody, onSuccess: () => void) => {
+    try {
+      runInAction(() => {
+        this.isLoading = true;
+      });
+      await api.auth.changePassword(data);
+      onSuccess();
     } catch (error) {
       message.error(getError(error));
     } finally {
