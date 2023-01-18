@@ -104,6 +104,7 @@ class AuthStore {
       runInAction(() => {
         this.isLoading = true;
       });
+
       const {
         data: { user, accessToken },
       } = await api.auth.checkAuthenticated({ withCredentials: true });
@@ -118,6 +119,22 @@ class AuthStore {
       if (isAxiosError(error) && error.response.status !== UNAUTHORIZED) {
         message.error(getError(error));
       }
+    } finally {
+      runInAction(() => {
+        this.isLoading = false;
+      });
+    }
+  };
+
+  changePassword = async (data: changePasswordBody, onSuccess: () => void) => {
+    try {
+      runInAction(() => {
+        this.isLoading = true;
+      });
+      await api.auth.changePassword(data);
+      onSuccess();
+    } catch (error) {
+      message.error(getError(error));
     } finally {
       runInAction(() => {
         this.isLoading = false;

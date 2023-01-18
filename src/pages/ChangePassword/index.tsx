@@ -1,6 +1,8 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Button, Form, Input } from 'antd';
+import { observer } from 'mobx-react-lite';
+import { authStore } from '@stores/authStore';
 import { LockOutlined } from '@ant-design/icons';
 import { CustomParticles } from '@components/CustomParticles';
 import { formItemLayout, tailFormItemLayout } from '@constants/formLayout';
@@ -13,11 +15,15 @@ import {
 } from './styles';
 
 const ChangePassword: React.FC = () => {
+  const { changePassword, isLoading } = authStore;
+  const param = useParams();
   const navigate = useNavigate();
   const [form] = Form.useForm();
 
-  const onFinish = (values: string) => {
-    console.log('Received values of form: ', values);
+  const onFinish = async (values) => {
+    await changePassword({ password: values.password, secondPassword: values.confirm, chnageLink: param.link }, () =>
+      navigate('/login')
+    );
   };
 
   return (
@@ -97,5 +103,4 @@ const ChangePassword: React.FC = () => {
     </>
   );
 };
-
-export default ChangePassword;
+export default observer(ChangePassword);
