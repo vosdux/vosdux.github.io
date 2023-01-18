@@ -1,7 +1,9 @@
 import { message } from 'antd';
 import { makeAutoObservable, runInAction } from 'mobx';
+import { isAxiosError } from 'axios';
 import { api } from '@api/api';
 import { getError } from '@utils/getError';
+import { UNAUTHORIZED } from '@constants/httpCodes';
 
 class AuthStore {
   isLoading = false;
@@ -32,6 +34,7 @@ class AuthStore {
       });
     } catch (error) {
       message.error(getError(error));
+      throw error;
     } finally {
       runInAction(() => {
         this.isLoading = false;
@@ -56,6 +59,7 @@ class AuthStore {
       });
     } catch (error) {
       message.error(getError(error));
+      throw error;
     } finally {
       runInAction(() => {
         this.isLoading = false;
@@ -95,15 +99,42 @@ class AuthStore {
     }
   };
 
-  changePassword = async (data: changePasswordBody, onSuccess: () => void) => {
+  checkAuthenticated = async () => {
+    try {
+      runInAction(() => {
+        this.isLoading = true;
+      });
+
+      const {
+        data: { user, accessToken },
+      } = await api.auth.checkAuthenticated({ withCredentials: true });
+      localStorage.setItem('token', accessToken);
+      runInAction(() => {
+        this.isAuthenticated = true;
+        this.isActivated = user.isActivated;
+        this.role = user.role;
+        this.email = user.email;
+      });
+    } catch (error) {
+      if (isAxiosError(error) && error.response.status !== UNAUTHORIZED) {
+        message.error(getError(error));
+      }
+    } finally {
+      runInAction(() => {
+        this.isLoading = false;
+      });
+    }
+  };
+
+  changePassword = async (data: changePasswordBody) => {
     try {
       runInAction(() => {
         this.isLoading = true;
       });
       await api.auth.changePassword(data);
-      onSuccess();
     } catch (error) {
       message.error(getError(error));
+      throw error;
     } finally {
       runInAction(() => {
         this.isLoading = false;

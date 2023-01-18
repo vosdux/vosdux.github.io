@@ -13,7 +13,7 @@ export const NON_AUTH_MENU_ITEMS = [
 
 export const AUTH_MENU_ITEMS = [
   ...COMMON_MENU_ITEMS,
-  { type: 'link', to: 'dashboards', children: 'Личный кабинет' },
+  { type: 'link', to: 'dashboard', children: 'Личный кабинет' },
 ];
 
 export const FIRST_ANIMATED_WORD = [

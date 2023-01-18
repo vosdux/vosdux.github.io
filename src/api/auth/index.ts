@@ -40,3 +40,11 @@ export const resendEmail = async (data: { email: string }, config?: AxiosRequest
     throw error;
   }
 };
+
+export const checkAuthenticated = async (config?: AxiosRequestConfig) => {
+  try {
+    return await makeRequest.post<AuthorizationResponse>('/check', {}, config);
+  } catch (error) {
+    throw error;
+  }
+};

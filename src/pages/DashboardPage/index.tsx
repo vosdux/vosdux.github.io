@@ -21,13 +21,11 @@ const DashboardPage = () => {
   } = theme.useToken();
   const navigate = useNavigate();
 
-  console.log(isAuthenticated, 'isAuthenticated');
-
   useEffect(() => {
-    if (!isAuthenticated) {
+    if (!isLoading && !isAuthenticated) {
       navigate('/');
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAuthenticated]);
 
   return isActivated ? (
