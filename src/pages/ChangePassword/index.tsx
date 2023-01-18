@@ -21,9 +21,10 @@ const ChangePassword: React.FC = () => {
   const [form] = Form.useForm();
 
   const onFinish = async (values) => {
-    await changePassword({ password: values.password, secondPassword: values.confirm, chnageLink: param.link }, () =>
-      navigate('/login')
-    );
+    try {
+      await changePassword({ password: values.password, secondPassword: values.confirm, chnageLink: param.link });
+      navigate('/login');
+    } catch (error) {}
   };
 
   return (
@@ -90,7 +91,7 @@ const ChangePassword: React.FC = () => {
               />
             </Form.Item>
             <Form.Item {...tailFormItemLayout} className={сhangePassword__btn}>
-              <Button type="primary" htmlType="submit">
+              <Button type="primary" htmlType="submit" loading={isLoading}>
                 Изменить пороль
               </Button>
               <Button type="primary" onClick={() => navigate('/login')}>

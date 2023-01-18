@@ -126,15 +126,15 @@ class AuthStore {
     }
   };
 
-  changePassword = async (data: changePasswordBody, onSuccess: () => void) => {
+  changePassword = async (data: changePasswordBody) => {
     try {
       runInAction(() => {
         this.isLoading = true;
       });
       await api.auth.changePassword(data);
-      onSuccess();
     } catch (error) {
       message.error(getError(error));
+      throw error;
     } finally {
       runInAction(() => {
         this.isLoading = false;
