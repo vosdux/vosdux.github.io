@@ -1,8 +1,9 @@
 import { message } from 'antd';
 import { makeAutoObservable, runInAction } from 'mobx';
+import { isAxiosError } from 'axios';
 import { api } from '@api/api';
 import { getError } from '@utils/getError';
-import { isAxiosError } from 'axios';
+import { UNAUTHORIZED } from '@constants/httpCodes';
 
 class AuthStore {
   isLoading = false;
@@ -33,6 +34,7 @@ class AuthStore {
       });
     } catch (error) {
       message.error(getError(error));
+      throw error;
     } finally {
       runInAction(() => {
         this.isLoading = false;
@@ -57,6 +59,7 @@ class AuthStore {
       });
     } catch (error) {
       message.error(getError(error));
+      throw error;
     } finally {
       runInAction(() => {
         this.isLoading = false;
@@ -103,7 +106,7 @@ class AuthStore {
       });
       const {
         data: { user, accessToken },
-      } = await api.auth.checkAuthenticated();
+      } = await api.auth.checkAuthenticated({ withCredentials: true });
       localStorage.setItem('token', accessToken);
       runInAction(() => {
         this.isAuthenticated = true;
@@ -112,8 +115,7 @@ class AuthStore {
         this.email = user.email;
       });
     } catch (error) {
-      if (isAxiosError(error) && error.response.status !== 401) {
-        console.log(error);
+      if (isAxiosError(error) && error.response.status !== UNAUTHORIZED) {
         message.error(getError(error));
       }
     } finally {

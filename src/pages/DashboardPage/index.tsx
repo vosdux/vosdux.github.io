@@ -21,8 +21,6 @@ const DashboardPage = () => {
   } = theme.useToken();
   const navigate = useNavigate();
 
-  console.log(isAuthenticated, 'isAuthenticated');
-
   useEffect(() => {
     if (!isLoading && !isAuthenticated) {
       navigate('/');
