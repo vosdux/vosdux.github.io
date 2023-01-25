@@ -51,7 +51,7 @@ const LoginPage: React.FC = () => {
                 <Checkbox>Запомнить меня</Checkbox>
               </Form.Item>
 
-              <a type="link">Забыли пароль</a>
+              <a type="link" onClick={() => navigate('/change-password-request')}>Забыли пароль</a>
             </Form.Item>
 
             <Form.Item className={login__btn}>

@@ -9,6 +9,7 @@ class AuthStore {
   isLoading = false;
   isAuthenticated = false;
   isActivated = false;
+  isLogoutLoading = false;
   email = '';
   role: 'USER' | 'ADMIN' | null = null;
 
@@ -138,6 +139,29 @@ class AuthStore {
     } finally {
       runInAction(() => {
         this.isLoading = false;
+      });
+    }
+  };
+
+  logout = async () => {
+    try {
+      runInAction(() => {
+        this.isLogoutLoading = true;
+      });
+      await api.auth.logout();
+      localStorage.removeItem('token');
+      this.isActivated = false;
+      this.isAuthenticated = false;
+      this.email = '';
+      this.role = null;
+    } catch (error) {
+      message.error(getError(error));
+      throw error;
+    } finally {
+      runInAction(() => {
+        runInAction(() => {
+          this.isLogoutLoading = false;
+        });
       });
     }
   };

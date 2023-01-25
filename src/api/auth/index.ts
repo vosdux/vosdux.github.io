@@ -48,3 +48,11 @@ export const checkAuthenticated = async (config?: AxiosRequestConfig) => {
     throw error;
   }
 };
+
+export const logout = async () => {
+  try {
+    return await makeRequest.post('/logout');
+  } catch (error) {
+    throw error;
+  }
+};
