@@ -14,10 +14,12 @@ import {
 type Props = {
   email: string;
   isResendLoading: boolean;
+  isExtiLoading: boolean;
   onResendClick: () => void;
+  onExitClick: () => void;
 };
 
-export const VerifyEmail: FC<Props> = ({ email, isResendLoading, onResendClick }) => {
+export const VerifyEmail: FC<Props> = ({ email, isResendLoading, isExtiLoading, onResendClick, onExitClick }) => {
   const navigate = useNavigate();
 
   return (
@@ -44,7 +46,9 @@ export const VerifyEmail: FC<Props> = ({ email, isResendLoading, onResendClick }
               </p>
             </div>
             <div>
-              <Button loading={isResendLoading} onClick={onResendClick} type="primary">Отправить</Button> <Button onClick={() => navigate('/')} type="primary">Назад</Button>
+              <Button loading={isResendLoading} disabled={isExtiLoading} onClick={onResendClick} type="primary">Отправить</Button> 
+              <Button onClick={() => navigate('/')} type="primary">На главную</Button>
+              <Button loading={isExtiLoading} disabled={isResendLoading} onClick={onExitClick} type="primary">Выйти</Button>
             </div>
           </div>
         </div>

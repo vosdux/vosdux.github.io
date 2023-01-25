@@ -14,7 +14,7 @@ type MenuItem = Required<MenuProps>['items'][number];
 const items: MenuItem[] = [{ key: '1', icon: <UserOutlined />, label: 'User' }];
 
 const DashboardPage = () => {
-  const { isActivated, email, isAuthenticated, isLoading, resendEmail } = authStore;
+  const { isActivated, email, isAuthenticated, isLoading, isLogoutLoading, resendEmail, logout } = authStore;
   const [collapsed, setCollapsed] = useState(false);
   const {
     token: { colorBgContainer },
@@ -27,6 +27,13 @@ const DashboardPage = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAuthenticated]);
+
+  const onExitClick = async () => {
+    try {
+      await logout();
+      navigate('/');
+    } catch (error) {}
+  };
 
   return isActivated ? (
     <Layout style={{ minHeight: '100vh' }}>
@@ -47,7 +54,7 @@ const DashboardPage = () => {
       </Layout>
     </Layout>
   ) : (
-    <VerifyEmail isResendLoading={isLoading} onResendClick={() => resendEmail()} email={email} />
+    <VerifyEmail isExtiLoading={isLogoutLoading} isResendLoading={isLoading} onResendClick={resendEmail} onExitClick={onExitClick} email={email} />
   );
 };
 
