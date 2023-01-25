@@ -1,5 +1,5 @@
 import { css } from '@linaria/core';
-import { landigFont, landingTitileFontSize, wrapperWidth } from '@styles/global';
+import { landigFont, landingTitileFontSize } from '@styles/global';
 
 export const advantage = css`
   background-color: #1c1d25;
@@ -7,10 +7,7 @@ export const advantage = css`
   padding-bottom: 40px;
 `;
 
-export const advantage__wrapper = css`
-  max-width: ${wrapperWidth};
-  margin: auto;
-`;
+export const advantage__wrapper = css``;
 
 export const advantage__title = css`
   color: #ffffff;
@@ -25,9 +22,15 @@ export const advantage__title = css`
 export const advantage__list = css`
   display: flex;
   align-items: center;
-  justify-content: space-around;
   flex-wrap: wrap;
   flex-direction: row;
   padding-left: 2vw;
   padding-right: 2vw;
+  justify-content: space-between;
+  gap: 20px;
+`;
+
+export const borderCard = css`
+  border: 2px solid #f5f5f5;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 `;
