@@ -71,8 +71,8 @@ module.exports = {
         use: {
           loader: 'file-loader',
           options: {
-            outputPath: 'media',
-            publicPath: 'media',
+            outputPath: '/media',
+            publicPath: '/media',
             name: '[name].[ext]',
           },
         },
