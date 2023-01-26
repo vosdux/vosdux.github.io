@@ -15,7 +15,7 @@ const { Sider } = Layout;
 const { Text } = Typography;
 
 const DashboardPage = () => {
-  const { isActivated, email, isAuthenticated, isLoading, resendEmail } = authStore;
+  const { isActivated, email, isAuthenticated, isLoading, isLogoutLoading, resendEmail, logout } = authStore;
   const [collapsed, setCollapsed] = useState(false);
   const [keyPage, setKeyPage] = useState('1');
 
@@ -56,6 +56,13 @@ const DashboardPage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAuthenticated]);
 
+  const onExitClick = async () => {
+    try {
+      await logout();
+      navigate('/');
+    } catch (error) {}
+  };
+
   if (isLoading) {
     return <LoadingScreen />;
   }
@@ -91,7 +98,7 @@ const DashboardPage = () => {
       </Layout>
     </>
   ) : (
-    <VerifyEmail isResendLoading={isLoading} onResendClick={() => resendEmail()} email={email} />
+    <VerifyEmail isExtiLoading={isLogoutLoading} isResendLoading={isLoading} onResendClick={resendEmail} onExitClick={onExitClick} email={email} />
   );
 };
 

@@ -5,8 +5,8 @@ export const FooterComponent = () => (
   <section className={footer}>
     <div className={footer__wrapper}>
       <div className={footer__list}>
-        <a href="#" className={footer__list__link}>
-          webstack@gmail.com
+        <a href="mailto:webstackfe@gmail.com" className={footer__list__link}>
+          webstackfe@gmail.com
         </a>
         <span>©2023 Webstack</span>
       </div>
