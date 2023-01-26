@@ -2,6 +2,7 @@ import { ConfigProvider } from 'antd';
 import React, { Suspense, useEffect } from 'react';
 import { authStore } from '@stores/authStore';
 import { globals, primaryColor } from '@styles/global';
+import { LoadingScreen } from '@components/LoadingScreen';
 import { AppRoute } from './Route';
 
 export const App = () => {
@@ -20,7 +21,7 @@ export const App = () => {
         },
       }}
     >
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<LoadingScreen />}>
         <div className={globals}></div>
         <AppRoute />
       </Suspense>

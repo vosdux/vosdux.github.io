@@ -12,6 +12,7 @@ export const DashBoard__title = css`
 `;
 
 export const Dashboard__transparent = css`
+  min-height: 100vh;
   background-color: transparent;
   section {
     background-color: transparent;

@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { Layout, Menu } from 'antd';
+import { Avatar, Layout, Menu, Row, Space, Typography } from 'antd';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
 import cn from 'classnames';
 import { UserOutlined, ReadOutlined } from '@ant-design/icons';
 import { getSlideInAnimation } from '@utils/getSlideInAnimation';
 import { CustomParticles } from '@components/CustomParticles';
+import { LoadingScreen } from '@components/LoadingScreen';
 import { DashBoard__title, Dashboard__transparent } from './styles';
 import { authStore } from '../../stores/authStore/index';
 import { VerifyEmail } from '../../components/VerifyEmail/index';
 
-const {  Sider } = Layout;
+const { Sider } = Layout;
+const { Text } = Typography;
 
 const DashboardPage = () => {
   const { isActivated, email, isAuthenticated, isLoading, resendEmail } = authStore;
@@ -54,12 +56,23 @@ const DashboardPage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAuthenticated]);
 
+  if (isLoading) {
+    return <LoadingScreen />;
+  }
+
   return isActivated ? (
     <>
       <CustomParticles />
-      <Layout style={{ minHeight: '100vh' }} className={Dashboard__transparent}>
-        <Sider collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
-          <div style={{ height: 32, margin: 16, background: 'rgba(255, 255, 255, 0.2)' }} />
+      <Layout className={Dashboard__transparent}>
+        <Sider collapsed={collapsed} collapsible onCollapse={(value) => setCollapsed(value)}>
+          <div style={{ padding: '5px 0', margin: 16, background: 'rgba(255, 255, 255, 0.2)' }}>
+            <Row justify="center">
+              <Space>
+                <Avatar icon={<UserOutlined />} />
+                {!collapsed && <Text style={{ color: 'white' }}>Name</Text>}
+              </Space>
+            </Row>
+          </div>
           <Menu
             theme="dark"
             mode="inline"
