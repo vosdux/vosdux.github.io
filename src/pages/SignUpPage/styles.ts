@@ -59,3 +59,7 @@ export const register__btn = css`
     margin-inline-start: 0;
   }
 `;
+
+export const icon = css`
+  margin-right: 5px;
+`;
