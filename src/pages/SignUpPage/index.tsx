@@ -1,23 +1,35 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Button, Checkbox, Form, Input } from 'antd';
+import { Button, Checkbox, Form, Input, Modal, Popover, Typography } from 'antd';
 import { observer } from 'mobx-react-lite';
-import { LockOutlined, UserOutlined } from '@ant-design/icons';
+import { LockOutlined, UserOutlined, InfoCircleTwoTone } from '@ant-design/icons';
 import { authStore } from '@stores/authStore';
 import { formItemLayout, tailFormItemLayout } from '@constants/formLayout';
 import { CustomParticles } from '@components/CustomParticles';
-import { root, container__login, register__input, login__block, register__checkbox, register__btn } from './styles';
+import {
+  root,
+  container__login,
+  register__input,
+  login__block,
+  register__checkbox,
+  register__btn,
+  icon,
+} from './styles';
+
+const { Text } = Typography;
 
 const SignUp: React.FC = () => {
   const { singnUp, isLoading } = authStore;
   const navigate = useNavigate();
   const [form] = Form.useForm();
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const toggleModal = () => setIsModalVisible(!isModalVisible);
 
   const onFinish = async (values) => {
     try {
       await singnUp({ email: values.email, password: values.password, secondPassword: values.confirm });
       navigate('/dashboard');
-    } catch (error) { }
+    } catch (error) {}
   };
 
   return (
@@ -42,24 +54,49 @@ const SignUp: React.FC = () => {
             >
               <Input className={register__input} prefix={<UserOutlined />} placeholder="E-mail" />
             </Form.Item>
-
-            <Form.Item
-              name="password"
-              rules={[
-                {
-                  required: true,
-                  message: 'Пожалуйста, введите ваш пароль!',
-                },
-              ]}
-              hasFeedback
+            <Popover
+              placement="top"
+              content={
+                <div style={{ width: '300px' }}>
+                  <InfoCircleTwoTone twoToneColor="orange" className={icon} />
+                  <Text>
+                    Пароль должен содержать цифры, латинские буквы верхнего и нижнего регистра и содержать не менее 8
+                    символов
+                  </Text>
+                </div>
+              }
             >
-              <Input.Password
-                prefix={<LockOutlined />}
-                type="password"
-                placeholder="Пароль"
-                className={register__input}
-              />
-            </Form.Item>
+              <Form.Item
+                name="password"
+                rules={[
+                  {
+                    required: true,
+                    message: 'Пожалуйста, введите ваш пароль!',
+                  },
+                  {
+                    min: 8,
+                    message: 'Слишком короткий пароль!',
+                  },
+                  {
+                    pattern: new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])'),
+                    message: 'Пароль не надежен!',
+                  },
+                  {
+                    max: 32,
+                    message: 'Превышен лимит!',
+                  },
+                ]}
+                hasFeedback
+              >
+                <Input.Password
+                  prefix={<LockOutlined />}
+                  type="password"
+                  placeholder="Пароль"
+                  className={register__input}
+                  autoComplete="new-password"
+                />
+              </Form.Item>
+            </Popover>
 
             <Form.Item
               name="confirm"
@@ -87,7 +124,6 @@ const SignUp: React.FC = () => {
                 className={register__input}
               />
             </Form.Item>
-
             <Form.Item
               name="agreement"
               valuePropName="checked"
@@ -101,7 +137,7 @@ const SignUp: React.FC = () => {
               {...tailFormItemLayout}
             >
               <Checkbox>
-                Я прочитал <a href="">соглашение</a>
+                Я прочитал <a onClick={toggleModal}>соглашение</a>
               </Checkbox>
             </Form.Item>
             <Form.Item {...tailFormItemLayout} className={register__btn}>
@@ -112,6 +148,9 @@ const SignUp: React.FC = () => {
             </Form.Item>
           </Form>
         </div>
+        <Modal open={isModalVisible} onCancel={toggleModal} onOk={toggleModal} okText="Ок" cancelText="Отменить" title="Cолгашение">
+          <Text>Здесь будет текст соглашения</Text>
+        </Modal>
       </div>
     </>
   );
