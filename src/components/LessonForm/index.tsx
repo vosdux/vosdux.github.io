@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
-import { AutoComplete, Form, FormInstance, Input } from 'antd';
+import { Form, FormInstance, Input } from 'antd';
 import { message } from '@constants/formMessages';
+import { ApiSelect } from '@components/ApiSelect';
 
 type Props = {
   form: FormInstance;
@@ -19,7 +20,18 @@ export const LessonForm: FC<Props> = ({ form }) => (
     >
       <Input />
     </Form.Item>
-    <Form.Item label="Ссылка на видео" name="video" rules={[{ required: true, message }]}>
+    <Form.Item
+      label="Ссылка на видео"
+      name="video"
+      rules={[
+        { required: true, message },
+        {
+          pattern:
+            /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)$/,
+          message: 'Не верный url',
+        },
+      ]}
+    >
       <Input />
     </Form.Item>
     <Form.Item
@@ -35,7 +47,7 @@ export const LessonForm: FC<Props> = ({ form }) => (
     </Form.Item>
     <Form.Item
       label="ДЗ"
-      name="text"
+      name="homework"
       rules={[
         { required: true, message },
         { min: 3, message: 'Минимум 3 символа' },
@@ -44,20 +56,8 @@ export const LessonForm: FC<Props> = ({ form }) => (
     >
       <Input.TextArea />
     </Form.Item>
-    <Form.Item
-      label="ДЗ"
-      name="text"
-      rules={[
-        { required: true, message },
-      ]}
-    >
-      {/* <AutoComplete
-        options={options}
-        style={{ width: 200 }}
-        onSelect={onSelect}
-        onSearch={onSearch}
-        placeholder="input here"
-      /> */}
+    <Form.Item label="Курс" name="courseId" rules={[{ required: true, message }]}>
+      <ApiSelect serachFiled="search" url="courses" path="rows" valueField="id" lableField="name" />
     </Form.Item>
   </Form>
 );

@@ -1,5 +1,6 @@
 import { login, singnUp, changePasswordRequest, resendEmail, checkAuthenticated, changePassword, logout } from './auth/index';
-import { createCourse, createLesson, updateCourses } from './admin';
+import { createCourse, updateCourses, getCourses, deleteCourse } from './course';
+import { getLessons, createLesson, updateLesson, deleteLesson } from './lessons';
 
 export const api = {
   auth: {
@@ -11,9 +12,16 @@ export const api = {
     resendEmail,
     checkAuthenticated,
   },
-  admin: {
+  course: {
     createCourse,
-    createLesson,
     updateCourses,
+    getCourses,
+    deleteCourse,
+  },
+  lesson: {
+    getLessons,
+    createLesson,
+    updateLesson,
+    deleteLesson,
   },
 };

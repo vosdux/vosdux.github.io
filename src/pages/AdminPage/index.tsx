@@ -39,7 +39,7 @@ const AdminPage: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    if (!isLoading && !isAuthenticated && role !== 'ADMIN') {
+    if (!isLoading && (!isAuthenticated || role !== 'ADMIN')) {
       navigate('/');
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

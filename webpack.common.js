@@ -23,6 +23,7 @@ module.exports = {
       '@constants': path.join(__dirname, 'src/constants'),
       '@utils': path.join(__dirname, 'src/utils'),
       '@styles': path.join(__dirname, 'src/styles'),
+      '@hooks': path.join(__dirname, 'src/hooks'),
     },
   },
   module: {

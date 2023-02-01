@@ -5,7 +5,6 @@ import { message } from '@constants/formMessages';
 
 type Props = {
   form: FormInstance;
-  initialValues?: CourseResponse;
 };
 
 const formItemLayout = {
@@ -13,18 +12,15 @@ const formItemLayout = {
   wrapperCol: { span: 14 },
 };
 
-export const CourseForm: FC<Props> = ({ form, initialValues }) => {
+export const CourseForm: FC<Props> = ({ form }) => {
   const normFile = (e: any) => {
-    console.log('Upload event:', e);
-    if (Array.isArray(e)) {
-      return e;
-    }
-
-    return e?.fileList;
+    e.fileList[0].progress = 100;
+    e.fileList[0].status = 'success';
+    return e.fileList;
   };
 
   return (
-    <Form {...formItemLayout} form={form} initialValues={initialValues}>
+    <Form {...formItemLayout} form={form}>
       <Form.Item
         label="Название"
         name="name"
@@ -51,7 +47,7 @@ export const CourseForm: FC<Props> = ({ form, initialValues }) => {
         <InputNumber min={0} />
       </Form.Item>
       <Form.Item
-        name="avatar"
+        name="image"
         label="Аватар"
         valuePropName="fileList"
         getValueFromEvent={normFile}

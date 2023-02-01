@@ -7,3 +7,5 @@ type CourseResponse = {
   rating: number;
   completedCount: number;
 }
+
+type CourseGetResponse = GetResponse<CourseResponse>;
