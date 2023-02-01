@@ -4,10 +4,12 @@ import { FormCourseType } from '@pages/AdminCoursePage';
 import { api } from '@api/api';
 import { getError } from '../../utils/getError';
 
-const { course: { getCourses, deleteCourse, updateCourses, createCourse } } = api;
+const { course: { getCourses, getCourseInfo, deleteCourse, updateCourses, createCourse } } = api;
 
 class CourseStore {
   isLoading = false;
+  isCourseinfoLoading = false;
+  courseInfo: CourseInfoResponse = {} as CourseInfoResponse;
   courseData: CourseResponse[] = [];
   courseTotal = 0;
 
@@ -31,7 +33,25 @@ class CourseStore {
     }
   };
 
-  getCourse = async (page: number, limit: number) => {
+  getCourseInfo = async (id: string) => {
+    try {
+      runInAction(() => {
+        this.isCourseinfoLoading = true;
+      });
+
+      const { data } = await getCourseInfo(id);
+      this.courseInfo = data;
+    } catch (error) {
+      message.error(getError(error));
+      throw error;
+    } finally {
+      runInAction(() => {
+        this.isCourseinfoLoading = false;
+      });
+    }
+  };
+
+  getCourses = async (page: number, limit: number) => {
     await this.apiMethod(async () => {
       const { data } = await getCourses({ params: { offset: (page - 1) * limit, limit } });
       this.courseData = data.rows;

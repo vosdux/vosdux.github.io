@@ -1,5 +1,5 @@
 import { login, singnUp, changePasswordRequest, resendEmail, checkAuthenticated, changePassword, logout } from './auth/index';
-import { createCourse, updateCourses, getCourses, deleteCourse } from './course';
+import { createCourse, updateCourses, getCourses, deleteCourse, getCourseInfo } from './course';
 import { getLessons, createLesson, updateLesson, deleteLesson } from './lessons';
 
 export const api = {
@@ -17,6 +17,7 @@ export const api = {
     updateCourses,
     getCourses,
     deleteCourse,
+    getCourseInfo,
   },
   lesson: {
     getLessons,

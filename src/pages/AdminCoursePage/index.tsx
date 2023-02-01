@@ -23,10 +23,10 @@ const AdminCoursePage = () => {
   const [form] = Form.useForm<FormCourseType>();
 
   const { page, setPage, limit, setLimit } = usePagination(1, initLimit);
-  const { createCoruse, updateCourse, getCourse, deleteCourse, isLoading, courseData, courseTotal } = courseStore;
+  const { createCoruse, updateCourse, getCourses, deleteCourse, isLoading, courseData, courseTotal } = courseStore;
 
   useEffect(() => {
-    getCourse(page, limit);
+    getCourses(page, limit);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, limit]);
 
@@ -60,7 +60,7 @@ const AdminCoursePage = () => {
       await createCoruse(values);
       message.success('Курс успешно создан');
       toggleModal();
-      getCourse(page, limit);
+      getCourses(page, limit);
     } catch (error) {}
   };
 
@@ -70,14 +70,14 @@ const AdminCoursePage = () => {
       await updateCourse({ id: record.id, ...values });
       message.success('Курс отредактирован');
       toggleModal();
-      getCourse(page, limit);
+      getCourses(page, limit);
     } catch (error) {}
   };
 
   const onCourseDelete = async (id: string) => {
     try {
       await deleteCourse(id);
-      getCourse(page, limit);
+      getCourses(page, limit);
       message.success('Курс удален!');
     } catch (error) {}
   };
