@@ -7,9 +7,12 @@ import SignUpPage from '@pages/SignUpPage';
 import ChangePassword from '@pages/ChangePassword';
 import PasswordRequest from '@pages/PasswordRequest';
 import CoursePage from '@pages/CoursePage';
+import AdminCoursePage from '@pages/AdminCoursePage';
+import AdminLessonPage from '@pages/AdminLessonPage';
 
 // const LandingPage = React.lazy(() => import('./pages/LandingPage'));
 const DashboardPage = React.lazy(() => import('./pages/DashboardPage'));
+const AdminPage = React.lazy(() => import('./pages/AdminPage'));
 // const LoginPage = React.lazy(() => import('./pages/LoginPage'));
 // const SignUpPage = React.lazy(() => import('./pages/SignUpPage'));
 
@@ -20,6 +23,10 @@ export const AppRoute = observer(() => {
         <Route path="/" element={<LandingPage />} />
         <Route path="/dashboard/*" element={<DashboardPage />}>
           <Route path="courses" element={<CoursePage />} />
+        </Route>
+        <Route path="/admin/*" element={<AdminPage />}>
+          <Route path="courses" element={<AdminCoursePage />} />
+          <Route path="lessons" element={<AdminLessonPage />} />
         </Route>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/sign-up" element={<SignUpPage />} />
