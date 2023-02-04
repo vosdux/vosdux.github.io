@@ -5,7 +5,21 @@ type CourseResponse = {
   image: string;
   price: string;
   rating: number;
-  completedCount: number;
-}
+  percent: number;
+  purchased: boolean;
+};
 
 type CourseGetResponse = GetResponse<CourseResponse>;
+
+type CourseInfoResponse = {
+  name: string;
+  description: string;
+  lessons: {
+    name: string;
+    completed: boolean;
+  }[];
+  rating: number;
+  price: string;
+  completedCount: number;
+  purchasedCount: number;
+};

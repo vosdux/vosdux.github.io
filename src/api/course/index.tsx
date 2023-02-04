@@ -1,6 +1,8 @@
 import { AxiosRequestConfig } from 'axios';
 import { makeRequest } from '../makeRequest';
 
+export const getCourseInfo = async (id: string) => await makeRequest.get<CourseInfoResponse>(`/courses/${id}`);
+
 export const getCourses = async (config?: AxiosRequestConfig) =>
   await makeRequest.get<CourseGetResponse>('/courses', config);
 
