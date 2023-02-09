@@ -7,6 +7,7 @@ import SignUpPage from '@pages/SignUpPage';
 import ChangePassword from '@pages/ChangePassword';
 import PasswordRequest from '@pages/PasswordRequest';
 import CoursePage from '@pages/CoursePage';
+import UserPage from '@pages/UserPage';
 
 // const LandingPage = React.lazy(() => import('./pages/LandingPage'));
 const DashboardPage = React.lazy(() => import('./pages/DashboardPage'));
@@ -19,6 +20,7 @@ export const AppRoute = observer(() => {
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/dashboard/*" element={<DashboardPage />}>
+          <Route path="user" element={<UserPage />} />
           <Route path="courses" element={<CoursePage />} />
         </Route>
         <Route path="/login" element={<LoginPage />} />

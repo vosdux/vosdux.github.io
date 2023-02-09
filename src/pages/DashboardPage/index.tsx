@@ -27,7 +27,7 @@ const DashboardPage = () => {
       key: '1',
       icon: <UserOutlined />,
       label: 'User',
-      onClick: () => navigate('/dashboard'),
+      onClick: () => navigate('/dashboard/user'),
     },
     {
       key: '2',
@@ -98,7 +98,13 @@ const DashboardPage = () => {
       </Layout>
     </>
   ) : (
-    <VerifyEmail isExtiLoading={isLogoutLoading} isResendLoading={isLoading} onResendClick={resendEmail} onExitClick={onExitClick} email={email} />
+    <VerifyEmail
+      isExtiLoading={isLogoutLoading}
+      isResendLoading={isLoading}
+      onResendClick={resendEmail}
+      onExitClick={onExitClick}
+      email={email}
+    />
   );
 };
 
