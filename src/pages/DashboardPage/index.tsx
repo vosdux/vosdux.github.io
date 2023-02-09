@@ -29,7 +29,7 @@ const DashboardPage = () => {
       key: '1',
       icon: <UserOutlined />,
       label: 'User',
-      onClick: () => navigate('/dashboard'),
+      onClick: () => navigate('/dashboard/user'),
     },
     {
       key: '2',
