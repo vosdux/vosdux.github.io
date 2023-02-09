@@ -7,7 +7,7 @@ const { Meta } = Card;
 
 type Props = {
   image: string;
-  title: string;
+  name: string;
   percent: number;
   purchased: boolean;
   onButtonClick: () => void;
@@ -22,13 +22,13 @@ const Wrapper: FC<PropsWithChildren<{ purchased: boolean }>> = ({ children, purc
     <>{children}</>
   );
 
-export const CourseCard: FC<Props> = ({ image, title, percent, purchased, onButtonClick }) => {
+export const CourseCard: FC<Props> = ({ image, name, percent, purchased, onButtonClick }) => {
   return (
     <Wrapper purchased={purchased}>
       <Card className={root}>
         <div className={wrapper}>
           <img src={image} height="50px" width="50px" className={mb15} />
-          <Meta title={title} className={mb10} />
+          <Meta title={name} className={mb10} />
           <Progress className={progress} percent={percent} />
           <Button onClick={onButtonClick} type="primary">
             Подробнее

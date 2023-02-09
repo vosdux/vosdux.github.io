@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { Avatar, Layout, Menu, Row, Space, Typography } from 'antd';
+import { Avatar, Button, Layout, Menu, Row, Space, Typography } from 'antd';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
 import cn from 'classnames';
 import { UserOutlined, ReadOutlined } from '@ant-design/icons';
+import { authStore } from '@stores/authStore';
 import { getSlideInAnimation } from '@utils/getSlideInAnimation';
 import { CustomParticles } from '@components/CustomParticles';
 import { LoadingScreen } from '@components/LoadingScreen';
-import { DashBoard__title, Dashboard__transparent } from './styles';
-import { authStore } from '../../stores/authStore/index';
-import { VerifyEmail } from '../../components/VerifyEmail/index';
+import { VerifyEmail } from '@components/VerifyEmail';
+import { mb15 } from '@styles/global';
+import { Dashboard__logo, Dashboard__sider, DashBoard__title, Dashboard__transparent, Dashboard__username } from './styles';
 
 const { Sider } = Layout;
 const { Text } = Typography;
@@ -18,6 +19,7 @@ const DashboardPage = () => {
   const { isActivated, email, isAuthenticated, isLoading, isLogoutLoading, resendEmail, logout } = authStore;
   const [collapsed, setCollapsed] = useState(false);
   const [keyPage, setKeyPage] = useState('1');
+  const [isBroken, setIsBroken] = useState(false);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -47,20 +49,19 @@ const DashboardPage = () => {
         break;
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [location]);
 
   useEffect(() => {
     if (!isLoading && !isAuthenticated) {
       navigate('/');
     }
+    navigate('/dashboard/courses');
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAuthenticated]);
 
   const onExitClick = async () => {
-    try {
-      await logout();
-      navigate('/');
-    } catch (error) {}
+    await logout();
+    navigate('/');
   };
 
   if (isLoading) {
@@ -71,29 +72,41 @@ const DashboardPage = () => {
     <>
       <CustomParticles />
       <Layout className={Dashboard__transparent}>
-        <Sider collapsed={collapsed} collapsible onCollapse={(value) => setCollapsed(value)}>
-          <div style={{ padding: '5px 0', margin: 16, background: 'rgba(255, 255, 255, 0.2)' }}>
-            <Row justify="center">
-              <Space>
-                <Avatar icon={<UserOutlined />} />
-                {!collapsed && <Text style={{ color: 'white' }}>Name</Text>}
-              </Space>
-            </Row>
+        <Sider
+          breakpoint='sm'
+          collapsedWidth={isBroken ? '0' : undefined}
+          onBreakpoint={setIsBroken}
+          collapsed={collapsed}
+          collapsible
+          onCollapse={(value) => setCollapsed(value)}
+          className={Dashboard__sider}
+        >
+          <div>
+            <div className={Dashboard__logo}>
+              <Row justify="center">
+                <Space>
+                  <Avatar icon={<UserOutlined />} />
+                  {!collapsed && <Text className={Dashboard__username}>Name</Text>}
+                </Space>
+              </Row>
+            </div>
+            <Menu
+              theme="dark"
+              mode="inline"
+              selectedKeys={[keyPage]}
+              items={items}
+              onClick={({ key }) => setKeyPage(key)}
+            />
           </div>
-          <Menu
-            theme="dark"
-            mode="inline"
-            selectedKeys={[keyPage]}
-            items={items}
-            onClick={({ key }) => setKeyPage(key)}
-          />
+          <Row justify="center" className={mb15}>
+            <Button type="primary" onClick={onExitClick}>Выйти</Button>
+          </Row>
         </Sider>
         <Layout className={Dashboard__transparent}>
           <div className={cn(getSlideInAnimation('Up'))}>
             <h2 className={DashBoard__title}>{items[Number(keyPage) - 1].label}</h2>
           </div>
           <Outlet />
-          {/* <Footer style={{ textAlign: 'center' }}>Ant Design ©2023 Created by Ant UED</Footer> */}
         </Layout>
       </Layout>
     </>

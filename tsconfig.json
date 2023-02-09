@@ -19,7 +19,8 @@
       "@api/*": ["api/*"],
       "@constants/*": ["constants/*"],
       "@utils/*": ["utils/*"],
-      "@styles/*": ["styles/*"]
+      "@styles/*": ["styles/*"],
+      "@hooks/*": ["hooks/*"]
     },
     "allowJs": true,
     "resolveJsonModule": true,
